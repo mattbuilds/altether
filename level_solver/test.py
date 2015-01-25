@@ -190,7 +190,7 @@ def find_path(final, checked, count):
 				#print 'down'
 
 def print_locations(answer, boxes):
-	answer_print = {}
+	answer_print = {'size':size}
 
 	for x in range(boxes):
 		answer_print[x+1] = {}
@@ -198,9 +198,9 @@ def print_locations(answer, boxes):
 	for y, col in enumerate(answer):
 		for x, space in enumerate(col):
 			if space > 0:
-				answer_print[space]['start'] = {'x':x, 'y':8-y}
+				answer_print[space]['start'] = {'x':x, 'y':size-1-y}
 			if space < 0:
-				answer_print[-space]['answer'] = {'x':x, 'y':8-y}
+				answer_print[-space]['answer'] = {'x':x, 'y':size-1-y}
 
 	print json.dumps(answer_print)
 	f = open('output', 'w')
@@ -215,36 +215,46 @@ def print_locations(answer, boxes):
 #		 [0,0,0,0,0,3,-4,0],
 #		 [1,0,-2,0,0,0,0,0]]
 
+def initial():
+	initial = [0] * (size*size)
+
+	for x in range(boxes):
+		initial[x] = x+1
+		initial[x+boxes] = -(x+1)
+
+	random.shuffle(initial)
+
+	start =  [[0]*size for i in range(size)]
+
+	for x, value in enumerate(initial):
+		start[x/size][x%size] = value
+
+	run_sim(copy.deepcopy(start), '')
+
+	for key in moves:
+		solveable = True 
+		char = key.split(',')
+		for number in char:
+			if int(number) > 0:
+				solveable =  False
+		if solveable == True:
+			if len(moves[key]['previous']) > 10:
+				print moves[key]['previous']
+				print_locations(start, boxes)
+				return True
+
+	return False
+
+def run_everything():
+	moves = {}
+	finished = initial()
+	if finished == False:
+		run_everything()
+
 moves = {}
-size = 9
+size = 10
 boxes = 4
-
-initial = [0] * (size*size)
-
-for x in range(boxes):
-	initial[x] = x+1
-	initial[x+boxes] = -(x+1)
-
-random.shuffle(initial)
-
-start =  [[0]*size for i in range(size)]
-
-for x, value in enumerate(initial):
-	start[x/size][x%size] = value
-
-run_sim(copy.deepcopy(start), '')
-
-for key in moves:
-	solveable = True 
-	char = key.split(',')
-	for number in char:
-		if int(number) > 0:
-			solveable =  False
-	if solveable == True:
-		print moves[key]['previous']
-		print_locations(start, boxes)
-
-
+run_everything()
 
 #f = open('output', 'w')
 #f.write(str(moves))
