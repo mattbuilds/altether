@@ -37,9 +37,9 @@ public class MainMenuScreen implements Screen {
         sprites = new ArrayList<Sprite>();
         checks = new ArrayList<Sprite>();
 
-        FileHandle file = Gdx.files.local("level_status");
-        String text = file.readString();
-        System.out.println(text);
+        //FileHandle level_file = Gdx.files.local("level_status");
+        //String text = level_file.readString();
+        //System.out.println(text);
 
         camera = new OrthographicCamera(game_width, game_height);
         camera.position.set(camera.viewportWidth/2f, camera.viewportHeight/2f, 0);
