@@ -14,6 +14,7 @@ package com.boxpuzzle.game;
 public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.GestureListener {
     public static final String TITLE = "Gravity Game";
     public static final int WIDTH = 640, HEIGHT =960;
+    private int init_x=0, init_y=0;
 
     MainMenuScreen mainMenuScreen;
     GameScreen gameScreen;
@@ -23,8 +24,8 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
     //@Override
     public void create () {
         InputMultiplexer multiplexer  = new InputMultiplexer();
-        multiplexer.addProcessor(this);
         multiplexer.addProcessor(new GestureDetector(this));
+        multiplexer.addProcessor(this);
         Gdx.input.setInputProcessor(multiplexer);
         //mainMenuScreen = new MainMenuScreen(this, WIDTH, HEIGHT);
         mainMenuScreen = new MainMenuScreen(this, WIDTH, HEIGHT);
@@ -64,7 +65,17 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
 
     @Override
     public boolean touchDown (int x, int y, int pointer, int button) {
-        System.out.println(getScreen());
+        init_x = x;
+        init_y = y;
+        return false;
+    }
+
+    @Override
+    public boolean touchUp (int x, int y, int pointer, int button) {
+        if ((Math.abs(init_x - x) > 30) || (Math.abs(init_y - y) > 30)){
+            return false;
+        }
+
         if (mainMenuScreen == getScreen()){
             y = Gdx.graphics.getHeight() - y;
             mainMenuScreen.touch(x,y);
@@ -76,11 +87,6 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
             gameScreen.touch(x,y);
             return false;
         }
-        return false;
-    }
-
-    @Override
-    public boolean touchUp (int x, int y, int pointer, int button) {
         return false;
     }
 

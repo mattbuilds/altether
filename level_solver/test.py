@@ -238,7 +238,7 @@ def initial():
 			if int(number) > 0:
 				solveable =  False
 		if solveable == True:
-			if len(moves[key]['previous']) > 10:
+			if len(moves[key]['previous']) > 13:
 				print moves[key]['previous']
 				print_locations(start, boxes)
 				return True
@@ -252,7 +252,7 @@ def run_everything():
 		run_everything()
 
 moves = {}
-size = 10
+size = 9
 boxes = 4
 run_everything()
 

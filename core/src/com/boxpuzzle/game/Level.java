@@ -78,6 +78,8 @@ public class Level {
             boxes.add(player4);
         }
 
+        grid_size = root.get("size").asInt();
+
         grid = new Grid(64*grid_size, 64*grid_size, 32);
 
         for (int i=0; i<boxes.size(); i++){

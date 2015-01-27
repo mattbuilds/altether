@@ -6,6 +6,7 @@ package com.boxpuzzle.game;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -36,6 +37,10 @@ public class MainMenuScreen implements Screen {
         sprites = new ArrayList<Sprite>();
         checks = new ArrayList<Sprite>();
 
+        FileHandle file = Gdx.files.local("level_status");
+        String text = file.readString();
+        System.out.println(text);
+
         camera = new OrthographicCamera(game_width, game_height);
         camera.position.set(camera.viewportWidth/2f, camera.viewportHeight/2f, 0);
         camera.update();
@@ -56,7 +61,7 @@ public class MainMenuScreen implements Screen {
         two_texture = new Texture("two.png");
         two_texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
-        for (int i = 1; i<= 35; i++){
+        for (int i = 1; i<= 40; i++){
             String number_name = "box.png";
             texture = new Texture(number_name);
             texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
