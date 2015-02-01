@@ -1,0 +1,122 @@
+{
+1: {
+	status: 1
+},
+2: {
+	status: 1
+},
+3: {
+	status: 1
+},
+4: {
+	status: 1
+},
+5: {
+	status: 1
+},
+6: {
+	status: 1
+},
+7: {
+	status: 1
+},
+8: {
+	status: 1
+},
+9: {
+	status: 1
+},
+10: {
+	status: 1
+},
+11: {
+	status: 1
+},
+12: {
+	status: 1
+},
+13: {
+	status: 1
+},
+14: {
+	status: 1
+},
+15: {
+	status: 1
+},
+16: {
+	status: 1
+},
+17: {
+	status: 1
+},
+18: {
+	status: 1
+},
+19: {
+	status: 1
+},
+20: {
+	status: 1
+},
+21: {
+	status: 1
+},
+22: {
+	status: 1
+},
+23: {
+	status: 1
+},
+24: {
+	status: 0
+},
+25: {
+	status: 0
+},
+26: {
+	status: 0
+},
+27: {
+	status: 0
+},
+28: {
+	status: 0
+},
+29: {
+	status: 0
+},
+30: {
+	status: 0
+},
+31: {
+	status: 0
+},
+32: {
+	status: 0
+},
+33: {
+	status: 1
+},
+34: {
+	status: 1
+},
+35: {
+	status: 0
+},
+36: {
+	status: 0
+},
+37: {
+	status: 0
+},
+38: {
+	status: 0
+},
+39: {
+	status: 0
+},
+40: {
+	status: 0
+}
+}

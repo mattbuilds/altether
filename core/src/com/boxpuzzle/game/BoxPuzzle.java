@@ -28,8 +28,8 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
         multiplexer.addProcessor(this);
         Gdx.input.setInputProcessor(multiplexer);
         //mainMenuScreen = new MainMenuScreen(this, WIDTH, HEIGHT);
-        mainMenuScreen = new MainMenuScreen(this, WIDTH, HEIGHT);
         gameScreen = new GameScreen(this, WIDTH, HEIGHT);
+        mainMenuScreen = new MainMenuScreen(this, WIDTH, HEIGHT);
         setScreen(mainMenuScreen);
     }
 

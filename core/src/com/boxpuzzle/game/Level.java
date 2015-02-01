@@ -124,11 +124,11 @@ public class Level {
         if (grid_size == 8){
             scale = 80;
         } else if (grid_size == 9){
-            game_x_offset = 5;
-            scale = 70;
+            //game_x_offset = ;
+            scale = 71;
         } else if (grid_size == 10){
-            game_x_offset = 20;
-            scale = 60;
+           // game_x_offset = 20;
+            scale = 64;
         } else{
             scale = 80;
         }

@@ -16,6 +16,7 @@ import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class GameScreen implements Screen{
     //Arrow arrow;
     FPSLogger fpsLogger;
     Texture back_text, refresh_text, previous_text, next_text, popup_text, popup_box_text;
-    Sprite back, refresh, previous, next, popup, popup_box1, popup_box2, popup_box3;
+    Sprite back, refresh, previous, next, popup, popup_box1, popup_box2, popup_box3, grey_sprite;
     BitmapFont font, popup_font;
 
     Player player;
@@ -75,14 +76,14 @@ public class GameScreen implements Screen{
         back_text.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         back = new Sprite(back_text);
         back.setOrigin(0,0);
-        back.setPosition(40,865);
+        back.setPosition(40,880);
 
         refresh_text = new Texture("refresh.png");
         refresh_text.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         refresh = new Sprite(refresh_text);
         refresh.setOrigin(0, 0);
-        refresh.setScale(.6f);
-        refresh.setPosition(camera.viewportWidth/2 - (refresh.getWidth()/2 * .6f),120);
+        refresh.setScale(.8f);
+        refresh.setPosition(camera.viewportWidth/2 - (refresh.getWidth()/2 * .8f),100);
 
         previous_text = new Texture("previous.png");
         previous_text.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -141,7 +142,7 @@ public class GameScreen implements Screen{
         batch.begin();
         //arrow.drawArrow(batch);
         level.draw(batch);
-        font.draw(batch, "Level " +lvl_num, 120, 910);
+        font.draw(batch, "Level " +lvl_num, 120, 925);
         back.draw(batch);
         previous.draw(batch);
         refresh.draw(batch);
@@ -247,6 +248,8 @@ public class GameScreen implements Screen{
 
     @Override
     public void resize(int width, int height){
+        System.out.println(width);
+        System.out.println(height);
         viewport.update(width, height, true);
     }
 }

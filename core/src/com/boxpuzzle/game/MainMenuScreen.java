@@ -14,6 +14,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import java.util.ArrayList;
@@ -25,10 +27,12 @@ public class MainMenuScreen implements Screen {
     private OrthographicCamera camera;
     private FitViewport viewport;
     private SpriteBatch batch;
-    private Texture check, texture, one_texture, two_texture;
+    private Texture check, texture;
     private List<Sprite> sprites, checks;
     private float sprite_x_offset, sprite_y_offset, scale_x, scale_y;
     private BitmapFont font;
+    private JsonValue levels_completed;
+    FileHandle level_file;
 
     // constructor to keep a reference to the main Game class
     public MainMenuScreen(BoxPuzzle game, int game_width, int game_height){
@@ -37,9 +41,15 @@ public class MainMenuScreen implements Screen {
         sprites = new ArrayList<Sprite>();
         checks = new ArrayList<Sprite>();
 
-        //FileHandle level_file = Gdx.files.local("level_status");
-        //String text = level_file.readString();
-        //System.out.println(text);
+        level_file = Gdx.files.local("level_status.txt");
+        try{
+            levels_completed = new JsonReader().parse(level_file.readString());
+        } catch (Exception e){
+            String text = "{1:{status:0},2:{status:0},3:{status:0},4:{status:0},5:{status:0},6:{status:0},7:{status:0},8:{status:0},9:{status:0},10:{status:0},11:{status:0},12:{status:0},13:{status:0},14:{status:0},15:{status:0},16:{status:0},17:{status:0},18:{status:0},19:{status:0},20:{status:0},21:{status:0},22:{status:0},23:{status:0},24:{status:0},25:{status:0},26:{status:0},27:{status:0},28:{status:0},29:{status:0},30:{status:0},31:{status:0},32:{status:0},33:{status:0},34:{status:0},35:{status:0},36:{status:0},37:{status:0},38:{status:0},39:{status:0},40:{status:0}}";
+            level_file.writeString(text, false);
+            level_file = Gdx.files.local("level_status.txt");
+            levels_completed = new JsonReader().parse(level_file.readString());
+        }
 
         camera = new OrthographicCamera(game_width, game_height);
         camera.position.set(camera.viewportWidth/2f, camera.viewportHeight/2f, 0);
@@ -56,10 +66,6 @@ public class MainMenuScreen implements Screen {
         check.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         batch = new SpriteBatch();
-        one_texture = new Texture("two.png");
-        one_texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        two_texture = new Texture("two.png");
-        two_texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         for (int i = 1; i<= 40; i++){
             String number_name = "box.png";
@@ -74,6 +80,15 @@ public class MainMenuScreen implements Screen {
             adding.setPosition(camera.viewportHeight/2f + adding.getWidth() *width, camera.viewportHeight/2f + adding.getHeight()*height);
 
             sprites.add(adding);
+        }
+
+        for (int i = 1; i < 40; i++){
+            if (levels_completed.get(Integer.toString(i)).getString("status").toString().equals("1") ){
+                float sprite_x = sprites.get(i-1).getX();
+                float sprite_y = sprites.get(i-1).getY();
+                checks.add(new Sprite(check));
+                checks.get(checks.size()-1).setPosition(sprite_x, sprite_y);
+            }
         }
     }
 
@@ -116,12 +131,15 @@ public class MainMenuScreen implements Screen {
             return -1.5f;
         } else if (i == 5){
             return 0f;
+
         } else{
             return 0f;
         }
     }
 
     public void updateCompletedLevel(int lvl_num){
+        levels_completed.get(Integer.toString(lvl_num+1)).get("status").set(1);
+        level_file.writeString(levels_completed.toString(), false);
         float sprite_x = sprites.get(lvl_num).getX();
         float sprite_y = sprites.get(lvl_num).getY();
         checks.add(new Sprite(check));
