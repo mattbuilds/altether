@@ -23,11 +23,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameScreen implements Screen{
-    SpriteBatch batch;
+    SpriteBatch batch, fixed_batch;
     //Arrow arrow;
     FPSLogger fpsLogger;
     Texture back_text, refresh_text, previous_text, next_text, popup_text, popup_box_text;
-    Sprite back, refresh, previous, next, popup, popup_box1, popup_box2, popup_box3, grey_sprite;
+    Sprite top_bar, menu, back, refresh, previous, next, popup, lvl_comp, menu_popup, next_popup, grey;
     BitmapFont font, popup_font;
 
     Player player;
@@ -40,7 +40,6 @@ public class GameScreen implements Screen{
     private float time;
     private boolean won = false;
     private OrthographicCamera camera;
-    private FitViewport viewport;
 
     BoxPuzzle game; // Note it's "my game" not "your game"
 
@@ -52,11 +51,21 @@ public class GameScreen implements Screen{
         String text = file.readString();
         levels = new JsonReader().parse(text);
 
-        camera = new OrthographicCamera(cam_width, cam_height);
+        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.position.set(camera.viewportWidth/2f, camera.viewportHeight/2f, 0);
         camera.update();
-        viewport = new FitViewport(cam_width,cam_height,camera);
-        viewport.apply();
+
+        fixed_batch = new SpriteBatch();
+        grey = new Sprite(new Texture("grey.png"));
+        grey.setPosition(0,0);
+        grey.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+        top_bar = new Sprite(new Texture("top_bar.png"));
+        top_bar.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getWidth()/10f *1.5f);
+        top_bar.setPosition(0,Gdx.graphics.getHeight() - top_bar.getHeight());
+
+        menu = new Sprite(new Texture("menu.png"));
+        menu.setPosition(0,Gdx.graphics.getHeight() - menu.getHeight());
 
         this.game = game;
         batch = new SpriteBatch();
@@ -65,7 +74,6 @@ public class GameScreen implements Screen{
 
         font = new BitmapFont(Gdx.files.internal("font.fnt"), Gdx.files.internal("font.png"), false);
         font.setColor(221/255f, 181/255f, 85/255f, 1);
-        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         popup_font = new BitmapFont(Gdx.files.internal("font.fnt"), Gdx.files.internal("font.png"), false);
         popup_font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -73,50 +81,40 @@ public class GameScreen implements Screen{
         popup_font.setScale(.8f);
 
         back_text = new Texture("back_button.png");
-        back_text.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         back = new Sprite(back_text);
         back.setOrigin(0,0);
-        back.setPosition(40,880);
+        back.setPosition(back.getWidth(),camera.viewportHeight - ((camera.viewportHeight -camera.viewportWidth)/2f) - back.getHeight()/4f) ;
 
         refresh_text = new Texture("refresh.png");
-        refresh_text.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         refresh = new Sprite(refresh_text);
         refresh.setOrigin(0, 0);
-        refresh.setScale(.8f);
-        refresh.setPosition(camera.viewportWidth/2 - (refresh.getWidth()/2 * .8f),100);
+        refresh.setPosition(camera.viewportWidth/2 - (refresh.getWidth()/2),camera.viewportHeight/2f - camera.viewportWidth *(2f/3f));
 
-        previous_text = new Texture("previous.png");
-        previous_text.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        previous = new Sprite(previous_text);
-        previous.setOrigin(0,0);
-        previous.setScale(.8f);
-        previous.setPosition(camera.viewportWidth/2 - 2.5f*previous.getWidth() *.8f,130);
+        previous = new Sprite(new Texture("back_button.png"));
+        previous.setOrigin(0, 0);
+        previous.setPosition(camera.viewportWidth/2 - 2f *previous.getWidth(),camera.viewportHeight/2f - camera.viewportWidth *(2f/3f));
 
-        next_text = new Texture("next.png");
-        next_text.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        next = new Sprite(next_text);
-        next.setOrigin(0,0);
-        next.setScale(.8f);
-        next.setPosition(camera.viewportWidth/2 + 1.5f*next.getWidth()*.8f,130);
+
+        next = new Sprite(new Texture("next.png"));
+        next.setOrigin(0, 0);
+        next.setPosition(camera.viewportWidth/2 + next.getWidth(),camera.viewportHeight/2f - camera.viewportWidth *(2f/3f));
 
         popup_text = new Texture("popup.png");
-        popup_text.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         popup = new Sprite(popup_text);
         popup.setOrigin(0,0);
         popup.setPosition(camera.viewportWidth/2 - popup.getWidth()/2,camera.viewportHeight/2 - popup.getHeight()/2);
 
-        popup_box_text = new Texture("popup_box.png");
-        popup_box_text.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        popup_box_text.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        popup_box1 = new Sprite(popup_box_text);
-        popup_box1.setOrigin(0,0);
-        popup_box1.setPosition(camera.viewportWidth/2 - popup_box1.getWidth()/2,camera.viewportHeight/2 - popup_box1.getHeight()/2+50);
-        popup_box2 = new Sprite(popup_box_text);
-        popup_box2.setOrigin(0,0);
-        popup_box2.setPosition(camera.viewportWidth/2 - popup_box2.getWidth()/2,camera.viewportHeight/2 - popup_box2.getHeight()/2-30);
-        popup_box3 = new Sprite(popup_box_text);
-        popup_box3.setOrigin(0,0);
-        popup_box3.setPosition(camera.viewportWidth/2 - popup_box3.getWidth()/2,camera.viewportHeight/2 - popup_box3.getHeight()/2-110);
+        lvl_comp = new Sprite(new Texture("lvl_comp.png"));
+        lvl_comp.setOrigin(0,0);
+        lvl_comp.setPosition(camera.viewportWidth/2 - lvl_comp.getWidth()/2,camera.viewportHeight/2);
+
+        menu_popup = new Sprite(new Texture("menu_popup.png"));
+        menu_popup.setOrigin(0,0);
+        menu_popup.setPosition(camera.viewportWidth/2 - 1.5f*menu_popup.getWidth(),camera.viewportHeight/2 - 1.25f* menu_popup.getHeight());
+
+        next_popup = new Sprite(new Texture("next_popup.png"));
+        next_popup.setOrigin(0,0);
+        next_popup.setPosition(camera.viewportWidth/2 + .5f*next_popup.getWidth(),camera.viewportHeight/2 - 1.25f* next_popup.getHeight());
 
         fpsLogger = new FPSLogger();
     }
@@ -142,22 +140,22 @@ public class GameScreen implements Screen{
         batch.begin();
         //arrow.drawArrow(batch);
         level.draw(batch);
-        font.draw(batch, "Level " +lvl_num, 120, 925);
-        back.draw(batch);
+        top_bar.draw(batch);
+        menu.draw(batch);
+        font.draw(batch, "Level " +lvl_num, camera.viewportWidth/2f - font.getBounds("Level " + lvl_num).width/2f, (camera.viewportHeight/2f + camera.viewportWidth/2f) - font.getBounds("Level " + lvl_num).height/2f);
+        //font.draw(batch, "Level " +lvl_num, camera.viewportWidth/2f - font.getBounds("Level " + lvl_num).width/2f, camera.viewportHeight - camera.viewportWidth/10f *1.5f + (1.5f * font.getBounds("Level " + lvl_num).height) );
+        //back.draw(batch);
         previous.draw(batch);
         refresh.draw(batch);
         next.draw(batch);
         if (won == false){
             won = level.checkCompleted(this.game, lvl_num);
         } else{
+            grey.draw(batch);
             popup.draw(batch);
-            popup_font.draw(batch, "Level Completed!", camera.viewportWidth/2 - popup_font.getBounds("Level Completed!").width/2,camera.viewportHeight/2+135);
-            popup_box1.draw(batch);
-            popup_font.draw(batch, "Next Level", (popup_box1.getX() + (popup_box1.getWidth()/2)) - popup_font.getBounds("Next Level").width/2,popup_box1.getY() + popup_box1.getHeight() - popup_box1.getHeight()/4);
-            popup_box2.draw(batch);
-            popup_font.draw(batch, "Level Menu", (popup_box2.getX() + (popup_box2.getWidth()/2)) - popup_font.getBounds("Level Menu").width/2,popup_box2.getY() + popup_box2.getHeight() - popup_box2.getHeight()/4);
-            popup_box3.draw(batch);
-            popup_font.draw(batch, "Remove Ads", (popup_box3.getX() + (popup_box3.getWidth()/2)) - popup_font.getBounds("Remove Ads").width/2,popup_box3.getY() + popup_box3.getHeight() - popup_box3.getHeight()/4);
+            lvl_comp.draw(batch);
+            menu_popup.draw(batch);
+            next_popup.draw(batch);
         }
         batch.end();
         fpsLogger.log();
@@ -173,19 +171,19 @@ public class GameScreen implements Screen{
 
     public void touch (int x, int y) {
         if (won == true){
-            if (spriteTouch(x,y,popup_box1)){
+            if (spriteTouch(x,y,next_popup)){
                 won = false;
                 level = new Level();
                 lvl_num += 1;
                 level.load(lvl_num, levels);
             }
 
-            if (spriteTouch(x,y,popup_box2)){
+            if (spriteTouch(x,y,menu_popup)){
                 won = false;
                 game.setMenu();
             }
         } else{
-            if (spriteTouch(x,y, back)){
+            if (spriteTouch(x,y, menu)){
                 game.setMenu();
             }
 
@@ -209,13 +207,8 @@ public class GameScreen implements Screen{
     }
 
     private boolean spriteTouch(int x, int y, Sprite sprite){
-        float sprite_x_offset = (Gdx.graphics.getWidth() - viewport.getLeftGutterWidth() - viewport.getRightGutterWidth())/camera.viewportWidth;
-        float sprite_y_offset = (Gdx.graphics.getHeight() - viewport.getTopGutterHeight() - viewport.getBottomGutterHeight())/camera.viewportHeight;
-
-        if(x >= (sprite.getX() * sprite_x_offset + viewport.getLeftGutterWidth()) &&
-           x <= (sprite.getX() * sprite_x_offset + sprite.getWidth() * sprite_x_offset * sprite.getScaleX() + viewport.getLeftGutterWidth()) &&
-           y >= (sprite.getY() * sprite_y_offset + viewport.getBottomGutterHeight()) &&
-           y <= (sprite.getY() * sprite_y_offset + sprite.getHeight() * sprite_y_offset * sprite.getScaleY() + viewport.getBottomGutterHeight()) ){
+        if(x >=sprite.getX() && x <= sprite.getX() + sprite.getWidth() &&
+                y >= sprite.getY() && y <= sprite.getY() + sprite.getHeight() ){
             return true;
         }
         return false;
@@ -248,8 +241,6 @@ public class GameScreen implements Screen{
 
     @Override
     public void resize(int width, int height){
-        System.out.println(width);
-        System.out.println(height);
-        viewport.update(width, height, true);
+
     }
 }

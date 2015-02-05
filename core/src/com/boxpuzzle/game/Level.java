@@ -46,8 +46,6 @@ public class Level {
         yellow_goal.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         purple_text = new Texture("purple_tile.png");
         purple_goal = new Texture("purple_goal.png");
-
-        background_grid.setScale(.5f);
     }
 
     public void load(int lvl_num, JsonValue levels) {
@@ -117,28 +115,24 @@ public class Level {
     }
 
     public void draw(SpriteBatch batch){
-        int game_x_offset = 0;
-        int game_y_offset = 220;
-        int scale;
-
-        if (grid_size == 8){
-            scale = 80;
-        } else if (grid_size == 9){
-            //game_x_offset = ;
-            scale = 71;
-        } else if (grid_size == 10){
-           // game_x_offset = 20;
-            scale = 64;
-        } else{
-            scale = 80;
-        }
+       float x_offset = (Gdx.graphics.getWidth()-(background_grid.getWidth() * grid_size))/2;
+       float y_offset = (Gdx.graphics.getHeight()-(background_grid.getHeight() * grid_size))/2;
 
         for (int i=0; i <grid_size; i++){
             for (int j =0; j<grid_size; j++){
-                batch.draw(background_grid, i*scale+game_x_offset, j*scale+game_y_offset, scale, scale);
+                //batch.draw(background_grid, i*scale+game_x_offset, j*scale+game_y_offset, scale, scale);
+                batch.draw(background_grid, i*background_grid.getWidth()+x_offset, j*background_grid.getHeight()+y_offset);
             }
         }
+        for (int i = 0; i < boxes.size(); i++){
+            boxes.get(i).draw(batch,x_offset, y_offset);
+        }
 
+        for (int i = 0; i < boxes.size(); i++){
+            boxes.get(i).drawGoal(batch, x_offset, y_offset);
+        }
+
+/*
         for (int i = 0; i < walls.size(); i++){
             walls.get(i).draw(batch, scale, game_x_offset, game_y_offset);
         }
@@ -149,6 +143,7 @@ public class Level {
         for (int i = 0; i < boxes.size(); i++){
             boxes.get(i).drawGoal(batch, scale, game_x_offset, game_y_offset);
         }
+       */
     }
 
     public boolean checkCompleted(BoxPuzzle game, int lvl_num){

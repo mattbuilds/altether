@@ -27,13 +27,12 @@ public class Player extends Box{
         completed_goal = false;
     }
 
-    public void draw(Batch batch, int scale, int game_x_offset, int game_y_offset){
-
-        batch.draw(img, x*1.25f *(scale/80f)+game_x_offset, y*1.25f *(scale/80f)+game_y_offset, scale, scale);
+    public void draw(Batch batch, float x_offset, float y_offset){
+        batch.draw(img, x+x_offset, y+y_offset);
     }
 
-    public void drawGoal(Batch batch, int scale, int game_x_offset, int game_y_offset){
-        batch.draw(goal_img, goal_x*1.25f *(scale/80f)+game_x_offset, goal_y*1.25f *(scale/80f)+game_y_offset, scale, scale);
+    public void drawGoal(Batch batch, float x_offset, float y_offset){
+        batch.draw(goal_img, goal_x+x_offset, goal_y+y_offset);
     }
 
     public void checkGoal(){

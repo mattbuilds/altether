@@ -40,6 +40,7 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
 
     public void setMenu(){
         setScreen(mainMenuScreen);
+        mainMenuScreen.forceCameraLocation();
     }
 
     public void completedLevel(int lvl_num){
@@ -127,7 +128,7 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
         System.out.println(velocityX);
         System.out.println(velocityY);
 
-        if (getScreen() == gameScreen){
+
             int keycode;
             if (Math.abs(velocityX)-100f > Math.abs(velocityY)){
                 if (velocityX > 0){
@@ -143,7 +144,10 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
                 }
             }
 
+        if (getScreen() == gameScreen){
             gameScreen.move(keycode);
+        } else if (getScreen() == mainMenuScreen){
+            mainMenuScreen.move(keycode);
         }
         return false;
     }

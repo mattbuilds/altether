@@ -7,10 +7,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -24,19 +21,22 @@ import java.util.List;
 public class MainMenuScreen implements Screen {
 
     private BoxPuzzle game; // Note it's "MyGame" not "Game"
-    private OrthographicCamera camera;
+    private OrthographicCamera camera, fixed_cam;
     private FitViewport viewport;
-    private SpriteBatch batch;
+    private SpriteBatch batch, fixed_batch;
     private Texture check, texture;
+    private Sprite  box, grey;
     private List<Sprite> sprites, checks;
-    private float sprite_x_offset, sprite_y_offset, scale_x, scale_y;
+    private float time, camera_x, sprite_x_offset, sprite_y_offset, scale_x, scale_y;
     private BitmapFont font;
     private JsonValue levels_completed;
     FileHandle level_file;
+    FPSLogger fpsLogger;
 
     // constructor to keep a reference to the main Game class
     public MainMenuScreen(BoxPuzzle game, int game_width, int game_height){
         this.game = game;
+        camera_x = 320;
 
         sprites = new ArrayList<Sprite>();
         checks = new ArrayList<Sprite>();
@@ -51,26 +51,41 @@ public class MainMenuScreen implements Screen {
             levels_completed = new JsonReader().parse(level_file.readString());
         }
 
-        camera = new OrthographicCamera(game_width, game_height);
+        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.position.set(camera.viewportWidth/2f, camera.viewportHeight/2f, 0);
         camera.update();
-        viewport = new FitViewport(game_width,game_height,camera);
-        viewport.apply();
+
+        fixed_cam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        fixed_cam.position.set(fixed_cam.viewportWidth/2f, fixed_cam.viewportHeight/2f, 0);
+        fixed_cam.update();
 
         font = new BitmapFont(Gdx.files.internal("font.fnt"), Gdx.files.internal("font.png"), false);
         //font.setColor(1, 1, 1, 1);
         //font.setScale(.35f);
-        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        //font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         check = new Texture("check.png");
         check.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         batch = new SpriteBatch();
+        texture = new Texture("box.png");
+        for (int i = 1; i<= 60; i++){
+            System.out.println( ((i-1)%30)/5);
+            Sprite adding = new Sprite(texture,64,64);
+            setPos(i, adding);
+        }
 
-        for (int i = 1; i<= 40; i++){
+        fixed_batch = new SpriteBatch();
+        grey = new Sprite(new Texture("grey.png"));
+        grey.setPosition(0,0);
+        grey.setScale(5f);
+        fpsLogger = new FPSLogger();
+
+/*
+        for (int i = 1; i<= 30; i++){
             String number_name = "box.png";
-            texture = new Texture(number_name);
-            texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            //texture = new Texture(number_name);
+            //texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             Sprite adding = new Sprite(texture);
 
             float width = getWidth(i-1);
@@ -90,51 +105,51 @@ public class MainMenuScreen implements Screen {
                 checks.get(checks.size()-1).setPosition(sprite_x, sprite_y);
             }
         }
+        */
     }
 
-    public float getHeight(int i){
-        i = (i/5)%9 + 1;
+    private void setPos(int num, Sprite adding){
+        float width_mult;
+        float height_mult;
+        int x_num, y_num, offset;
 
-        if (i == 1){
-            return 5f;
-        } else if (i == 2){
-            return 3.5f;
-        } else if (i == 3){
-            return 2f;
-        } else if (i == 4){
-            return .5f;
-        } else if (i == 5){
-            return -1f;
-        } else if (i == 6){
-            return -2.5f;
-        } else if (i == 7){
-            return -4f;
-        } else if (i == 8){
-            return -5.5f;
-        } else if (i == 9){
-            return -7f;
+        x_num = num%5;
+        if (x_num == 1){
+            width_mult = adding.getWidth()*-3.5f;
+        } else if (x_num == 2){
+            width_mult = adding.getWidth()*-1.75f;
+        } else if (x_num == 3){
+            width_mult = 0f;
+        } else if (x_num == 4){
+            width_mult = adding.getWidth()*1.75f;
         } else {
-            return 0f;
+            width_mult = adding.getWidth()*3.5f;
         }
-    }
 
-    public float getWidth(int i){
-        i = i%5+1;
+        offset = (num-1)/30;
+        if (offset == 1){
+            width_mult = camera.viewportWidth + width_mult;
+        }
 
-        if (i == 1){
-          return -6f;
-        } else if (i == 2){
-            return -4.5f;
-        } else if (i == 3){
-            return -3f;
-        } else if (i == 4){
-            return -1.5f;
-        } else if (i == 5){
-            return 0f;
-
+        y_num = ((num-1)%30)/5;
+        if (y_num == 0){
+            height_mult = adding.getHeight()*5.5f;
+        } else if (y_num == 1){
+            height_mult = adding.getHeight()*3.75f;
+        } else if (y_num == 2){
+            height_mult = adding.getHeight()* 2f ;
+        } else if (y_num == 3){
+            height_mult = adding.getHeight() *.25f;
+        } else if (y_num == 4){
+            height_mult = adding.getHeight()*-1.5f;
         } else{
-            return 0f;
+            height_mult = adding.getHeight()*-3.25f;
         }
+
+
+
+        adding.setPosition(Gdx.graphics.getWidth()/2f - adding.getWidth()/2 + width_mult, Gdx.graphics.getHeight()/2f - adding.getHeight()/2+height_mult);
+        sprites.add(adding);
     }
 
     public void updateCompletedLevel(int lvl_num){
@@ -148,12 +163,13 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        time = Gdx.graphics.getDeltaTime();
         Gdx.gl.glClearColor(71/255f, 81/255f, 93/255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        cameraMove();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-
-
+        //box.draw(batch);
         for (int i = 0; i<sprites.size(); i++){
             sprites.get(i).draw(batch);
         }
@@ -168,25 +184,64 @@ public class MainMenuScreen implements Screen {
             }
         }
         batch.end();
+        fpsLogger.log();
+        //camera.position.set(camera.position.x +1f, camera.position.y, 0);
+        //camera.update();
+        //fixed_batch.setProjectionMatrix(fixed_cam.combined);
+        //fixed_batch.begin();
+        //grey.draw(fixed_batch);
+        //fixed_batch.end();
+    }
+
+    public void cameraMove(){
+        if (camera_x == camera.position.x){
+            //
+        } else if ((int)camera_x > camera.position.x){
+            camera.position.x += 1500f*time;
+            if (camera.position.x > camera_x){
+                camera.position.x = camera_x;
+            }
+            camera.update();
+        } else if ((int)camera_x < camera.position.x){
+            camera.position.x -= 1500f*time;
+            if (camera.position.x < camera_x){
+                camera.position.x = camera_x;
+            }
+            camera.update();
+        }
+    }
+
+    public void forceCameraLocation(){
+        camera.position.x = camera_x;
+        camera.update();
+    }
+
+    public void move(int keycode){
+        System.out.println(keycode);
+         if (keycode == 21){
+             camera_x = camera.position.x + camera.viewportWidth;
+         } else if (keycode == 22){
+             camera_x = camera.position.x - camera.viewportWidth;
+
+         }
     }
 
     public void touch(int x, int y){
         Boolean clicked = false;
-        sprite_x_offset = (Gdx.graphics.getWidth() - viewport.getLeftGutterWidth() - viewport.getRightGutterWidth())/camera.viewportWidth;
-        sprite_y_offset = (Gdx.graphics.getHeight() - viewport.getTopGutterHeight() - viewport.getBottomGutterHeight())/camera.viewportHeight;
+        System.out.println(x);
+        System.out.println(y);
         for (int i = 0; i< sprites.size(); i++){
             clicked = number_click(x,y, sprites.get(i));
             if (clicked == true){
+                //System.out.print(i+1);
                 game.setGameScreen(i+1);
             }
         }
     }
 
     private boolean number_click(int x, int y, Sprite sprite){
-        if(x >= (sprite.getX() * sprite_x_offset + viewport.getLeftGutterWidth()) &&
-                x <= ((sprite.getX() + sprite.getWidth()) * sprite_x_offset + viewport.getLeftGutterWidth()) &&
-                y >= (sprite.getY() * sprite_y_offset + viewport.getBottomGutterHeight()) &&
-                y <= ((sprite.getY() + sprite.getHeight()) * sprite_y_offset + viewport.getBottomGutterHeight()) ){
+        if(x >=sprite.getX() && x <= sprite.getX() + sprite.getWidth() &&
+           y >= sprite.getY() && y <= sprite.getY() + sprite.getHeight() ){
            return true;
         } else{
             return false;
@@ -195,7 +250,15 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height);
+        camera.viewportWidth =  width;
+        camera.viewportHeight = height;
+        camera.position.set(camera.viewportWidth/2f, camera.viewportHeight/2f, 0);
+        camera.update();
+
+        fixed_cam.viewportWidth =  width;
+        fixed_cam.viewportHeight = height;
+        fixed_cam.position.set(fixed_cam.viewportWidth/2f, fixed_cam.viewportHeight/2f, 0);
+        fixed_cam.update();
     }
 
 

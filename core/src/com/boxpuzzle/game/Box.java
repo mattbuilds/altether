@@ -39,11 +39,11 @@ public class Box {
         img = wall;
     }
 
-    public void draw(Batch batch, int scale, int game_x_offset, int game_y_offset){
-        batch.draw(img, x + game_x_offset, y + game_y_offset);
+    public void draw(Batch batch, float x_offset, float y_offset){
+        batch.draw(img, x + x_offset, y + x_offset);
     }
 
-    public void drawGoal(Batch batch, int scale, int game_x_offset, int game_y_offset){
+    public void drawGoal(Batch batch, float x_offset, float y_offset){
         //
     }
 
