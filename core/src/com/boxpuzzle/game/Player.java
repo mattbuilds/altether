@@ -28,11 +28,11 @@ public class Player extends Box{
     }
 
     public void draw(Batch batch, float x_offset, float y_offset){
-        batch.draw(img, x+x_offset, y+y_offset);
+        batch.draw(img, x*(img.getWidth()/64f)+x_offset, y*(img.getHeight()/64f)+y_offset);
     }
 
     public void drawGoal(Batch batch, float x_offset, float y_offset){
-        batch.draw(goal_img, goal_x+x_offset, goal_y+y_offset);
+        batch.draw(goal_img, goal_x*(goal_img.getWidth()/64f)+x_offset, goal_y*(goal_img.getHeight()/64f)+y_offset);
     }
 
     public void checkGoal(){

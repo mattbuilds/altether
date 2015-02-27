@@ -24,49 +24,49 @@
 	status: 1
 },
 9: {
-	status: 1
+	status: 0
 },
 10: {
-	status: 1
+	status: 0
 },
 11: {
-	status: 1
+	status: 0
 },
 12: {
-	status: 1
+	status: 0
 },
 13: {
-	status: 1
+	status: 0
 },
 14: {
-	status: 1
+	status: 0
 },
 15: {
-	status: 1
+	status: 0
 },
 16: {
-	status: 1
+	status: 0
 },
 17: {
-	status: 1
+	status: 0
 },
 18: {
-	status: 1
+	status: 0
 },
 19: {
-	status: 1
+	status: 0
 },
 20: {
-	status: 1
+	status: 0
 },
 21: {
-	status: 1
+	status: 0
 },
 22: {
-	status: 1
+	status: 0
 },
 23: {
-	status: 1
+	status: 0
 },
 24: {
 	status: 0
@@ -87,19 +87,19 @@
 	status: 0
 },
 30: {
-	status: 1
+	status: 0
 },
 31: {
-	status: 1
+	status: 0
 },
 32: {
 	status: 0
 },
 33: {
-	status: 1
+	status: 0
 },
 34: {
-	status: 1
+	status: 0
 },
 35: {
 	status: 0
@@ -108,13 +108,13 @@
 	status: 0
 },
 37: {
-	status: 0
+	status: 1
 },
 38: {
 	status: 0
 },
 39: {
-	status: 0
+	status: 1
 },
 40: {
 	status: 0

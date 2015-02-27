@@ -15,6 +15,7 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
     public static final String TITLE = "Gravity Game";
     public static final int WIDTH = 640, HEIGHT =960;
     private int init_x=0, init_y=0;
+    public String resolution;
 
     MainMenuScreen mainMenuScreen;
     GameScreen gameScreen;
@@ -23,6 +24,8 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
 
     //@Override
     public void create () {
+        resolution = getResolution(Gdx.graphics.getWidth());
+        System.out.println(resolution);
         InputMultiplexer multiplexer  = new InputMultiplexer();
         multiplexer.addProcessor(new GestureDetector(this));
         multiplexer.addProcessor(this);
@@ -31,6 +34,15 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
         gameScreen = new GameScreen(this, WIDTH, HEIGHT);
         mainMenuScreen = new MainMenuScreen(this, WIDTH, HEIGHT);
         setScreen(mainMenuScreen);
+    }
+
+    public String getResolution(int res){
+        if (res >=640){
+            res = 640;
+        } else{
+            res = 480;
+        }
+        return Integer.toString(res);
     }
 
     public void setGameScreen(int lvl){
@@ -125,10 +137,6 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
 
     @Override
     public boolean fling(float velocityX, float velocityY, int button) {
-        System.out.println(velocityX);
-        System.out.println(velocityY);
-
-
             int keycode;
             if (Math.abs(velocityX)-100f > Math.abs(velocityY)){
                 if (velocityX > 0){

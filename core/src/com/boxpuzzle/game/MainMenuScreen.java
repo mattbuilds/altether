@@ -23,23 +23,26 @@ public class MainMenuScreen implements Screen {
     private BoxPuzzle game; // Note it's "MyGame" not "Game"
     private OrthographicCamera camera, fixed_cam;
     private FitViewport viewport;
-    private SpriteBatch batch, fixed_batch;
-    private Texture check, texture;
-    private Sprite  box, grey;
-    private List<Sprite> sprites, checks;
-    private float time, camera_x, sprite_x_offset, sprite_y_offset, scale_x, scale_y;
+    private SpriteBatch batch,  fixed_batch;
+    private Texture check, texture, off;
+    private Sprite  on, box, grey;
+    private List<Sprite> sprites, checks, circles;
+    private float page, time, camera_x, sprite_x_offset, sprite_y_offset, scale_x, scale_y;
+    private int pages;
     private BitmapFont font;
-    private JsonValue levels_completed;
+    public JsonValue levels_completed;
     FileHandle level_file;
     FPSLogger fpsLogger;
 
     // constructor to keep a reference to the main Game class
     public MainMenuScreen(BoxPuzzle game, int game_width, int game_height){
         this.game = game;
-        camera_x = 320;
+        page = 1;
+        //pages = 3;
 
         sprites = new ArrayList<Sprite>();
         checks = new ArrayList<Sprite>();
+        circles = new ArrayList<Sprite>();
 
         level_file = Gdx.files.local("level_status.txt");
         try{
@@ -50,35 +53,44 @@ public class MainMenuScreen implements Screen {
             level_file = Gdx.files.local("level_status.txt");
             levels_completed = new JsonReader().parse(level_file.readString());
         }
+        pages = (levels_completed.size/30)+1;
+        System.out.println(levels_completed.size);
 
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.position.set(camera.viewportWidth/2f, camera.viewportHeight/2f, 0);
         camera.update();
+        camera_x = camera.viewportWidth/2f;
 
         fixed_cam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         fixed_cam.position.set(fixed_cam.viewportWidth/2f, fixed_cam.viewportHeight/2f, 0);
         fixed_cam.update();
 
-        font = new BitmapFont(Gdx.files.internal("font.fnt"), Gdx.files.internal("font.png"), false);
+        font = new BitmapFont(Gdx.files.internal(this.game.resolution + "/num_font.fnt"), Gdx.files.internal(this.game.resolution + "/num_font.png"), false);
         //font.setColor(1, 1, 1, 1);
         //font.setScale(.35f);
         //font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
-        check = new Texture("check.png");
+        check = new Texture(this.game.resolution + "/check.png");
         check.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         batch = new SpriteBatch();
-        texture = new Texture("box.png");
-        for (int i = 1; i<= 60; i++){
+        fixed_batch = new SpriteBatch();
+        texture = new Texture(this.game.resolution + "/box.png");
+        for (int i = 1; i<= 40; i++){
             System.out.println( ((i-1)%30)/5);
-            Sprite adding = new Sprite(texture,64,64);
+            Sprite adding = new Sprite(texture);
             setPos(i, adding);
         }
 
-        fixed_batch = new SpriteBatch();
-        grey = new Sprite(new Texture("grey.png"));
-        grey.setPosition(0,0);
-        grey.setScale(5f);
+        off = new Texture(this.game.resolution + "/off_circle.png");
+        on = new Sprite(new Texture(this.game.resolution + "/on_circle.png"));
+        for (int i = 0; i<pages; i++){
+            circles.add(new Sprite(off));
+        }
+
+        setCircles(circles);
+        setOn();
+
         fpsLogger = new FPSLogger();
 
 /*
@@ -96,16 +108,33 @@ public class MainMenuScreen implements Screen {
 
             sprites.add(adding);
         }
-
-        for (int i = 1; i < 40; i++){
-            if (levels_completed.get(Integer.toString(i)).getString("status").toString().equals("1") ){
-                float sprite_x = sprites.get(i-1).getX();
-                float sprite_y = sprites.get(i-1).getY();
+*/
+        for (int i = 1; i <= 40; i++) {
+            if (levels_completed.get(Integer.toString(i)).getString("status").toString().equals("1")) {
+                float sprite_x = sprites.get(i - 1).getX();
+                float sprite_y = sprites.get(i - 1).getY();
                 checks.add(new Sprite(check));
-                checks.get(checks.size()-1).setPosition(sprite_x, sprite_y);
+                checks.get(checks.size() - 1).setPosition(sprite_x, sprite_y);
             }
         }
-        */
+    }
+
+    private void setCircles(List<Sprite> sprite){
+        float middle = sprite.size()/2f +1;
+
+        for (int i=0; i<sprite.size(); i++){
+            float x_off = -1f* ((middle - i - 1.5f)*2 +.5f);
+            sprite.get(i).setPosition(camera.viewportWidth/2 + x_off*sprite.get(i).getWidth(), 3f * sprite.get(i).getHeight());
+        }
+    }
+
+    private void setOn(){
+        float middle =(pages)/2f +1;
+        page = (camera_x+camera.viewportWidth/2)/camera.viewportWidth;
+        System.out.println((middle - page - 1.5) *2 +.5f) ;
+        float x_off = -1f* ((middle - page - .5f)*2 +.5f);
+        on.setPosition(camera.viewportWidth/2 + x_off*on.getWidth(), 3f * on.getHeight() );
+        //on.setPosition(camera.viewportWidth/2f + );
     }
 
     private void setPos(int num, Sprite adding){
@@ -127,9 +156,7 @@ public class MainMenuScreen implements Screen {
         }
 
         offset = (num-1)/30;
-        if (offset == 1){
-            width_mult = camera.viewportWidth + width_mult;
-        }
+        width_mult = offset*camera.viewportWidth + width_mult;
 
         y_num = ((num-1)%30)/5;
         if (y_num == 0){
@@ -146,19 +173,19 @@ public class MainMenuScreen implements Screen {
             height_mult = adding.getHeight()*-3.25f;
         }
 
-
-
-        adding.setPosition(Gdx.graphics.getWidth()/2f - adding.getWidth()/2 + width_mult, Gdx.graphics.getHeight()/2f - adding.getHeight()/2+height_mult);
+        adding.setPosition(camera.viewportWidth/2f - adding.getWidth()/2 + width_mult, camera.viewportHeight/2f - adding.getHeight()/2+height_mult);
         sprites.add(adding);
     }
 
     public void updateCompletedLevel(int lvl_num){
-        levels_completed.get(Integer.toString(lvl_num+1)).get("status").set(1);
-        level_file.writeString(levels_completed.toString(), false);
-        float sprite_x = sprites.get(lvl_num).getX();
-        float sprite_y = sprites.get(lvl_num).getY();
-        checks.add(new Sprite(check));
-        checks.get(checks.size()-1).setPosition(sprite_x, sprite_y);
+        if (levels_completed.get(Integer.toString(lvl_num+1)).getString("status").toString().equals("0")){
+            levels_completed.get(Integer.toString(lvl_num+1)).get("status").set(1);
+            level_file.writeString(levels_completed.toString(), false);
+            float sprite_x = sprites.get(lvl_num).getX();
+            float sprite_y = sprites.get(lvl_num).getY();
+            checks.add(new Sprite(check));
+            checks.get(checks.size()-1).setPosition(sprite_x, sprite_y);
+        }
     }
 
     @Override
@@ -177,20 +204,22 @@ public class MainMenuScreen implements Screen {
             checks.get(i).draw(batch);
         }
         for (int i = 0; i<sprites.size(); i++){
-            if (i < 9){
-                font.draw(batch, Integer.toString(i+1), sprites.get(i).getX()+21, sprites.get(i).getY()+48);
-            } else{
-                font.draw(batch, Integer.toString(i+1), sprites.get(i).getX()+8, sprites.get(i).getY()+48);
-            }
+            font.draw(batch, Integer.toString(i+1),
+                      sprites.get(i).getX()+ sprites.get(i).getWidth()/2f - font.getBounds(Integer.toString(i+1)).width/2f,
+                      sprites.get(i).getY()+ sprites.get(i).getHeight()/2f + font.getBounds(Integer.toString(i+1)).height/2f);
         }
+
         batch.end();
-        fpsLogger.log();
+        //fpsLogger.log();
         //camera.position.set(camera.position.x +1f, camera.position.y, 0);
         //camera.update();
-        //fixed_batch.setProjectionMatrix(fixed_cam.combined);
-        //fixed_batch.begin();
-        //grey.draw(fixed_batch);
-        //fixed_batch.end();
+        fixed_batch.setProjectionMatrix(fixed_cam.combined);
+        fixed_batch.begin();
+        for (int i=0; i<circles.size(); i++){
+            circles.get(i).draw(fixed_batch);
+        }
+        on.draw(fixed_batch);
+        fixed_batch.end();
     }
 
     public void cameraMove(){
@@ -199,13 +228,13 @@ public class MainMenuScreen implements Screen {
         } else if ((int)camera_x > camera.position.x){
             camera.position.x += 1500f*time;
             if (camera.position.x > camera_x){
-                camera.position.x = camera_x;
+                forceCameraLocation();
             }
             camera.update();
         } else if ((int)camera_x < camera.position.x){
             camera.position.x -= 1500f*time;
             if (camera.position.x < camera_x){
-                camera.position.x = camera_x;
+                forceCameraLocation();
             }
             camera.update();
         }
@@ -214,13 +243,13 @@ public class MainMenuScreen implements Screen {
     public void forceCameraLocation(){
         camera.position.x = camera_x;
         camera.update();
+        setOn();
     }
 
     public void move(int keycode){
-        System.out.println(keycode);
-         if (keycode == 21){
+         if (keycode == 21 && page < pages){
              camera_x = camera.position.x + camera.viewportWidth;
-         } else if (keycode == 22){
+         } else if (keycode == 22 && page > 1){
              camera_x = camera.position.x - camera.viewportWidth;
 
          }
@@ -228,8 +257,6 @@ public class MainMenuScreen implements Screen {
 
     public void touch(int x, int y){
         Boolean clicked = false;
-        System.out.println(x);
-        System.out.println(y);
         for (int i = 0; i< sprites.size(); i++){
             clicked = number_click(x,y, sprites.get(i));
             if (clicked == true){
@@ -240,7 +267,9 @@ public class MainMenuScreen implements Screen {
     }
 
     private boolean number_click(int x, int y, Sprite sprite){
-        if(x >=sprite.getX() && x <= sprite.getX() + sprite.getWidth() &&
+        float update_x = x + (page-1)*camera.viewportWidth;
+
+        if(update_x >=sprite.getX() && update_x <= sprite.getX() + sprite.getWidth() &&
            y >= sprite.getY() && y <= sprite.getY() + sprite.getHeight() ){
            return true;
         } else{

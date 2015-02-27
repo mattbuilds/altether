@@ -45,6 +45,7 @@ public class GameScreen implements Screen{
 
     // constructor to keep a reference to the main Game class
     public GameScreen(BoxPuzzle game, int cam_width, int cam_height){
+        this.game = game;
 
         //Load levels
         FileHandle file = Gdx.files.internal("levels.txt");
@@ -58,61 +59,61 @@ public class GameScreen implements Screen{
         fixed_batch = new SpriteBatch();
         grey = new Sprite(new Texture("grey.png"));
         grey.setPosition(0,0);
-        grey.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        grey.setSize(camera.viewportWidth, camera.viewportHeight);
 
         top_bar = new Sprite(new Texture("top_bar.png"));
-        top_bar.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getWidth()/10f *1.5f);
+        top_bar.setSize(camera.viewportWidth, camera.viewportWidth/10f *1.5f);
         top_bar.setPosition(0,Gdx.graphics.getHeight() - top_bar.getHeight());
 
-        menu = new Sprite(new Texture("menu.png"));
-        menu.setPosition(0,Gdx.graphics.getHeight() - menu.getHeight());
+        menu = new Sprite(new Texture(this.game.resolution + "/menu.png"));
+        menu.setPosition(camera.viewportWidth - menu.getWidth(),camera.viewportHeight - top_bar.getHeight()/2f - menu.getHeight()/2f);
 
-        this.game = game;
         batch = new SpriteBatch();
-        level = new Level();
+        level = new Level(this.game);
         level.load(lvl_num, levels);
 
-        font = new BitmapFont(Gdx.files.internal("font.fnt"), Gdx.files.internal("font.png"), false);
+        font = new BitmapFont(Gdx.files.internal(this.game.resolution +"/font.fnt"), Gdx.files.internal(this.game.resolution +"/font.png"), false);
         font.setColor(221/255f, 181/255f, 85/255f, 1);
+        //font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
-        popup_font = new BitmapFont(Gdx.files.internal("font.fnt"), Gdx.files.internal("font.png"), false);
+        popup_font = new BitmapFont(Gdx.files.internal(this.game.resolution +"/font.fnt"), Gdx.files.internal(this.game.resolution +"/font.png"), false);
         popup_font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         //popup_font.setColor(35/255f, 55/255f, 55/255f, 1);
         popup_font.setScale(.8f);
 
-        back_text = new Texture("back_button.png");
+        back_text = new Texture(this.game.resolution +"/back.png");
         back = new Sprite(back_text);
         back.setOrigin(0,0);
         back.setPosition(back.getWidth(),camera.viewportHeight - ((camera.viewportHeight -camera.viewportWidth)/2f) - back.getHeight()/4f) ;
 
-        refresh_text = new Texture("refresh.png");
+        refresh_text = new Texture(this.game.resolution +"/refresh.png");
         refresh = new Sprite(refresh_text);
         refresh.setOrigin(0, 0);
-        refresh.setPosition(camera.viewportWidth/2 - (refresh.getWidth()/2),camera.viewportHeight/2f - camera.viewportWidth *(2f/3f));
+        refresh.setPosition(camera.viewportWidth/2 - (refresh.getWidth()/2),0);
 
-        previous = new Sprite(new Texture("back_button.png"));
+        previous = new Sprite(new Texture(this.game.resolution +"/back.png"));
         previous.setOrigin(0, 0);
-        previous.setPosition(camera.viewportWidth/2 - 2f *previous.getWidth(),camera.viewportHeight/2f - camera.viewportWidth *(2f/3f));
+        previous.setPosition(camera.viewportWidth/2 - 2f *previous.getWidth(),refresh.getHeight()/2f - previous.getHeight()/2f);
 
 
-        next = new Sprite(new Texture("next.png"));
+        next = new Sprite(new Texture(this.game.resolution +"/next.png"));
         next.setOrigin(0, 0);
-        next.setPosition(camera.viewportWidth/2 + next.getWidth(),camera.viewportHeight/2f - camera.viewportWidth *(2f/3f));
+        next.setPosition(camera.viewportWidth/2 + next.getWidth(),refresh.getHeight()/2f - next.getHeight()/2f);
 
-        popup_text = new Texture("popup.png");
+        popup_text = new Texture(this.game.resolution +"/popup.png");
         popup = new Sprite(popup_text);
         popup.setOrigin(0,0);
         popup.setPosition(camera.viewportWidth/2 - popup.getWidth()/2,camera.viewportHeight/2 - popup.getHeight()/2);
 
-        lvl_comp = new Sprite(new Texture("lvl_comp.png"));
+        lvl_comp = new Sprite(new Texture(this.game.resolution +"/lvl_comp.png"));
         lvl_comp.setOrigin(0,0);
         lvl_comp.setPosition(camera.viewportWidth/2 - lvl_comp.getWidth()/2,camera.viewportHeight/2);
 
-        menu_popup = new Sprite(new Texture("menu_popup.png"));
+        menu_popup = new Sprite(new Texture(this.game.resolution +"/menu_popup.png"));
         menu_popup.setOrigin(0,0);
         menu_popup.setPosition(camera.viewportWidth/2 - 1.5f*menu_popup.getWidth(),camera.viewportHeight/2 - 1.25f* menu_popup.getHeight());
 
-        next_popup = new Sprite(new Texture("next_popup.png"));
+        next_popup = new Sprite(new Texture(this.game.resolution +"/next_popup.png"));
         next_popup.setOrigin(0,0);
         next_popup.setPosition(camera.viewportWidth/2 + .5f*next_popup.getWidth(),camera.viewportHeight/2 - 1.25f* next_popup.getHeight());
 
@@ -122,7 +123,7 @@ public class GameScreen implements Screen{
     public void load_level(int id){
         System.out.println("In Level");
         lvl_num = id;
-        level = new Level();
+        level = new Level(this.game);
         level.load(lvl_num, levels);
     }
 
@@ -142,12 +143,16 @@ public class GameScreen implements Screen{
         level.draw(batch);
         top_bar.draw(batch);
         menu.draw(batch);
-        font.draw(batch, "Level " +lvl_num, camera.viewportWidth/2f - font.getBounds("Level " + lvl_num).width/2f, (camera.viewportHeight/2f + camera.viewportWidth/2f) - font.getBounds("Level " + lvl_num).height/2f);
-        //font.draw(batch, "Level " +lvl_num, camera.viewportWidth/2f - font.getBounds("Level " + lvl_num).width/2f, camera.viewportHeight - camera.viewportWidth/10f *1.5f + (1.5f * font.getBounds("Level " + lvl_num).height) );
+        font.draw(batch, "Level " +lvl_num, camera.viewportWidth/2f - font.getBounds("Level " + lvl_num).width/2f, camera.viewportHeight - top_bar.getHeight()/2f +  font.getBounds("Level " + lvl_num).height/2f );
+        //font.draw(batch, "Level " +lvl_num, camera.viewportWidth/2f - font.getBounds("Level " + lvl_num).width/2f, camera.viewportHeight - camera.viewportWidth/10f *1.5f + (1.5f * font.getBounds("Level  " + lvl_num).height) );
         //back.draw(batch);
-        previous.draw(batch);
+        if (lvl_num != 1){
+            previous.draw(batch);
+        }
         refresh.draw(batch);
-        next.draw(batch);
+        if (lvl_num !=  this.game.mainMenuScreen.levels_completed.size){
+            next.draw(batch);
+        }
         if (won == false){
             won = level.checkCompleted(this.game, lvl_num);
         } else{
@@ -163,7 +168,7 @@ public class GameScreen implements Screen{
 
     public void move (int keycode) {
         if (keycode == 46){
-            level = new Level();
+            level = new Level(this.game);
             level.load(lvl_num, levels);
         }
         level.handleInput(keycode);
@@ -173,7 +178,7 @@ public class GameScreen implements Screen{
         if (won == true){
             if (spriteTouch(x,y,next_popup)){
                 won = false;
-                level = new Level();
+                level = new Level(this.game);
                 lvl_num += 1;
                 level.load(lvl_num, levels);
             }
@@ -188,18 +193,18 @@ public class GameScreen implements Screen{
             }
 
             if (spriteTouch(x,y,refresh)){
-                level = new Level();
+                level = new Level(this.game);
                 level.load(lvl_num, levels);
             }
 
-            if (spriteTouch(x,y,previous)){
-                level = new Level();
+            if (spriteTouch(x,y,previous) && lvl_num != 1){
+                level = new Level(this.game);
                 lvl_num -=1;
                 level.load(lvl_num, levels);
             }
 
-            if (spriteTouch(x,y, next)){
-                level = new Level();
+            if (spriteTouch(x,y, next) && lvl_num != this.game.mainMenuScreen.levels_completed.size){
+                level = new Level(this.game);
                 lvl_num += 1;
                 level.load(lvl_num, levels);
             }

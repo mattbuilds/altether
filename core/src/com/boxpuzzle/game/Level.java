@@ -28,24 +28,20 @@ public class Level {
     Player player1, player2, player3, player4, player5;
     int grid_size = 8;
 
-    public Level(){
+    public Level(BoxPuzzle game){
         walls = new ArrayList<Box>();
         //wall_img = new Texture("wall.jpg");
         boxes =  new ArrayList<Box>();
 
-        background_grid = new Sprite(new Texture("tile.png"));
-        red_text = new Texture(Gdx.files.internal("red_tile.png"), true);
-        red_goal = new Texture("red_goal.png");
-        blue_text = new Texture("blue_tile.png");
-        blue_goal = new Texture("blue_goal.png");
-        green_text = new Texture("green_tile.png");
-        green_goal = new Texture("green_goal.png");
-        yellow_text = new Texture("yellow_tile.png");
-        yellow_text.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        yellow_goal = new Texture("yellow_goal.png");
-        yellow_goal.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        purple_text = new Texture("purple_tile.png");
-        purple_goal = new Texture("purple_goal.png");
+        background_grid = new Sprite(new Texture(game.resolution + "/tile.png"));
+        red_text = new Texture(Gdx.files.internal(game.resolution + "/red_tile.png"), true);
+        red_goal = new Texture(game.resolution + "/red_goal.png");
+        blue_text = new Texture(game.resolution + "/blue_tile.png");
+        blue_goal = new Texture(game.resolution +"/blue_goal.png");
+        green_text = new Texture(game.resolution +"/green_tile.png");
+        green_goal = new Texture(game.resolution +"/green_goal.png");
+        yellow_text = new Texture(game.resolution + "/yellow_tile.png");
+        yellow_goal = new Texture(game.resolution + "/yellow_goal.png");
     }
 
     public void load(int lvl_num, JsonValue levels) {
@@ -125,11 +121,11 @@ public class Level {
             }
         }
         for (int i = 0; i < boxes.size(); i++){
-            boxes.get(i).draw(batch,x_offset, y_offset);
+            boxes.get(i).drawGoal(batch, x_offset, y_offset);
         }
 
         for (int i = 0; i < boxes.size(); i++){
-            boxes.get(i).drawGoal(batch, x_offset, y_offset);
+            boxes.get(i).draw(batch,x_offset, y_offset);
         }
 
 /*
