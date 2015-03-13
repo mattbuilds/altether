@@ -7,7 +7,6 @@ package com.boxpuzzle.game;
         import com.badlogic.gdx.graphics.g2d.SpriteBatch;
         import com.badlogic.gdx.input.GestureDetector;
         import com.badlogic.gdx.math.Vector2;
-
         import java.util.ArrayList;
         import java.util.List;
 
@@ -19,11 +18,12 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
 
     MainMenuScreen mainMenuScreen;
     GameScreen gameScreen;
-    Screen current;
+    IntroScreen introScreen;
 
 
     //@Override
     public void create () {
+        Analytics analytics = new Analytics();
         resolution = getResolution(Gdx.graphics.getWidth());
         System.out.println(resolution);
         InputMultiplexer multiplexer  = new InputMultiplexer();
@@ -31,9 +31,10 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
         multiplexer.addProcessor(this);
         Gdx.input.setInputProcessor(multiplexer);
         //mainMenuScreen = new MainMenuScreen(this, WIDTH, HEIGHT);
+        introScreen = new IntroScreen(this, WIDTH, HEIGHT);
         gameScreen = new GameScreen(this, WIDTH, HEIGHT);
         mainMenuScreen = new MainMenuScreen(this, WIDTH, HEIGHT);
-        setScreen(mainMenuScreen);
+        setScreen(introScreen);
     }
 
     public String getResolution(int res){
@@ -100,6 +101,12 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
             gameScreen.touch(x,y);
             return false;
         }
+        if (introScreen == getScreen()){
+            y = Gdx.graphics.getHeight() - y;
+            introScreen.touch(x,y);
+            return false;
+        }
+
         return false;
     }
 
