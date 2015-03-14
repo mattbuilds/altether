@@ -54,7 +54,6 @@ public class MainMenuScreen implements Screen {
             levels_completed = new JsonReader().parse(level_file.readString());
         }
         pages = (levels_completed.size/30)+1;
-        System.out.println(levels_completed.size);
 
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.position.set(camera.viewportWidth/2f, camera.viewportHeight/2f, 0);
@@ -77,7 +76,6 @@ public class MainMenuScreen implements Screen {
         fixed_batch = new SpriteBatch();
         texture = new Texture(this.game.resolution + "/box.png");
         for (int i = 1; i<= 40; i++){
-            System.out.println( ((i-1)%30)/5);
             Sprite adding = new Sprite(texture);
             setPos(i, adding);
         }
@@ -260,6 +258,7 @@ public class MainMenuScreen implements Screen {
         for (int i = 0; i< sprites.size(); i++){
             clicked = number_click(x,y, sprites.get(i));
             if (clicked == true){
+                //this.game.analytics.writeEvent("Level " + i+i + " selected");
                 //System.out.print(i+1);
                 game.setGameScreen(i+1);
             }

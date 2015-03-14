@@ -1,6 +1,7 @@
 package com.boxpuzzle.game;
 
         import com.badlogic.gdx.*;
+        import com.badlogic.gdx.files.FileHandle;
         import com.badlogic.gdx.graphics.FPSLogger;
         import com.badlogic.gdx.graphics.GL20;
         import com.badlogic.gdx.graphics.Texture;
@@ -11,6 +12,7 @@ package com.boxpuzzle.game;
         import java.util.List;
 
 public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.GestureListener {
+
     public static final String TITLE = "Gravity Game";
     public static final int WIDTH = 640, HEIGHT =960;
     private int init_x=0, init_y=0;
@@ -20,12 +22,16 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
     GameScreen gameScreen;
     IntroScreen introScreen;
 
+    //Analytics analytics;
+
 
     //@Override
     public void create () {
-        Analytics analytics = new Analytics();
+       // analytics = new Analytics();
+       // analytics.writeEvent("Game Started");
+      //  analytics.createEvent();
         resolution = getResolution(Gdx.graphics.getWidth());
-        System.out.println(resolution);
+        //System.out.println(resolution);
         InputMultiplexer multiplexer  = new InputMultiplexer();
         multiplexer.addProcessor(new GestureDetector(this));
         multiplexer.addProcessor(this);

@@ -24,9 +24,8 @@ public class IntroScreen implements Screen {
     private BoxPuzzle game; // Note it's "MyGame" not "Game"
     private SpriteBatch batch;
     private OrthographicCamera camera;
-    private BitmapFont font, big_font;
-
-
+    private BitmapFont font, big_font, bigger;
+    private Sprite menu;
 
     // constructor to keep a reference to the main Game class
     public IntroScreen(BoxPuzzle game, int game_width, int game_height){
@@ -35,12 +34,12 @@ public class IntroScreen implements Screen {
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.position.set(camera.viewportWidth/2f, camera.viewportHeight/2f, 0);
         camera.update();
+        FileHandle dirHandle;
+        dirHandle = Gdx.files.internal("fontz.fnt");
+        bigger = new BitmapFont(dirHandle, Gdx.files.internal("../assets/fonts/font.png"), false);
         big_font = new BitmapFont(Gdx.files.internal(this.game.resolution + "/font.fnt"), Gdx.files.internal(this.game.resolution + "/font.png"), false);
         font = new BitmapFont(Gdx.files.internal(this.game.resolution + "/num_font.fnt"), Gdx.files.internal(this.game.resolution + "/num_font.png"), false);
-
     }
-
-
 
     @Override
     public void render(float delta) {
@@ -67,7 +66,6 @@ public class IntroScreen implements Screen {
     }
 
     public void touch(int x, int y){
-        System.out.println(x);
         if (x > camera.viewportWidth/2f - font.getBounds("Play").width/2f &&
             x < camera.viewportWidth/2f - font.getBounds("Play").width/2f + font.getBounds("Play").width &&
             y > camera.viewportHeight/2f + 2f*font.getBounds("Play").height - font.getBounds("Play").height &&
