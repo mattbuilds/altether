@@ -11,4 +11,5 @@ public class DesktopLauncher {
         config.height = 700;
         new LwjglApplication(new BoxPuzzle(), config);
 	}
+
 }
