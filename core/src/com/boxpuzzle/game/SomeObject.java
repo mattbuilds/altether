@@ -10,5 +10,5 @@ public class SomeObject{
 
     public String event;
     public String user;
-    public int session;
+    public long session;
 }

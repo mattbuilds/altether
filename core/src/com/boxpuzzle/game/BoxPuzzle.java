@@ -20,16 +20,16 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
 
     MainMenuScreen mainMenuScreen;
     GameScreen gameScreen;
-    IntroScreen introScreen;
+    //IntroScreen introScreen;
 
-    //Analytics analytics;
+    Analytics analytics;
 
 
     //@Override
     public void create () {
-       // analytics = new Analytics();
-       // analytics.writeEvent("Game Started");
-      //  analytics.createEvent();
+        analytics = new Analytics();
+        analytics.writeEvent("Game Started");
+        analytics.createEvent();
         resolution = getResolution(Gdx.graphics.getWidth());
         //System.out.println(resolution);
         InputMultiplexer multiplexer  = new InputMultiplexer();
@@ -37,10 +37,10 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
         multiplexer.addProcessor(this);
         Gdx.input.setInputProcessor(multiplexer);
         //mainMenuScreen = new MainMenuScreen(this, WIDTH, HEIGHT);
-        introScreen = new IntroScreen(this, WIDTH, HEIGHT);
+        //introScreen = new IntroScreen(this, WIDTH, HEIGHT);
         gameScreen = new GameScreen(this, WIDTH, HEIGHT);
         mainMenuScreen = new MainMenuScreen(this, WIDTH, HEIGHT);
-        setScreen(introScreen);
+        setScreen(mainMenuScreen);
     }
 
     public String getResolution(int res){
@@ -107,11 +107,12 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
             gameScreen.touch(x,y);
             return false;
         }
+        /*
         if (introScreen == getScreen()){
             y = Gdx.graphics.getHeight() - y;
             introScreen.touch(x,y);
             return false;
-        }
+        }*/
 
         return false;
     }

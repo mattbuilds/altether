@@ -23,33 +23,47 @@ public class Analytics {
     private Json json;
     private String strObj;
     FileHandle analytics_file;
+    private String appType;
 
     public Analytics() {
-        analytics_file = Gdx.files.local("analytics_file.txt");
-        analytics_file.writeString("", true);
+        appType = Gdx.app.getType().toString();
+        System.out.println(appType);
+        if (appType == "WebGL"){
+            // Do nothing
+        } else{
+            analytics_file = Gdx.files.local("analytics_file.txt");
+            analytics_file.writeString("", true);
 
-        obj = new SomeObject();
-        java.util.Date date = new java.util.Date();
-        obj.event = "Start";
-        obj.user = "1";
-        obj.session = (int) date.getTime();
+            obj = new SomeObject();
+            java.util.Date date = new java.util.Date();
+            obj.event = "Start";
+            obj.user = "1";
+            obj.session = date.getTime();
 
-        json = new Json();
-        json.setOutputType(JsonWriter.OutputType.json);
-        System.out.println(json.toJson(obj));
+            json = new Json();
+            json.setOutputType(JsonWriter.OutputType.json);
+            System.out.println(json.toJson(obj));
 
-        httpRequest = new Net.HttpRequest("POST");
-        httpRequest.setContent(json.toJson(obj));
+            httpRequest = new Net.HttpRequest("POST");
+            httpRequest.setContent(json.toJson(obj));
 
-        httpRequest.setHeader("Content-Type", "application/json");
-        httpRequest.setHeader("Accept", "application/json");
-        httpRequest.setUrl("http://104.131.200.26/create_event");
+            httpRequest.setHeader("Content-Type", "application/json");
+            httpRequest.setHeader("Accept", "application/json");
+            httpRequest.setUrl("http://104.131.200.26/create_event");
+        }
     }
 
     public void writeEvent(String event){
-        obj.event = event;
-        strObj = json.toJson(obj);
-        analytics_file.writeString(strObj + ",", true);
+        switch (Gdx.app.getType()){
+            case WebGL:
+                //Do Nothing
+                break;
+            default:
+                obj.event = event;
+                strObj = json.toJson(obj);
+                analytics_file.writeString(strObj + ",", true);
+                break;
+        }
     }
 
     public String readFile(){
@@ -57,30 +71,36 @@ public class Analytics {
     }
 
     public void createEvent(){
-        httpRequest.setContent("{\"events\":[" + readFile() + "]}");
-        //Gdx.net.sendHttpRequest(httpRequest, null);
+        switch (Gdx.app.getType()){
+            case WebGL:
+                //Do Nothing
+                break;
+            default:
+                httpRequest.setContent("{\"events\":[" + readFile() + "]}");
+                //Gdx.net.sendHttpRequest(httpRequest, null);
 
-        Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener() {
+                Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener() {
 
-            public void handleHttpResponse(Net.HttpResponse httpResponse){
-                int statusCode = httpResponse.getStatus().getStatusCode();
-                System.out.println(statusCode);
+                    public void handleHttpResponse(Net.HttpResponse httpResponse){
+                        int statusCode = httpResponse.getStatus().getStatusCode();
+                        System.out.println(statusCode);
 
-                String responseJson = httpResponse.getResultAsString();
-                if (responseJson.equals("Create that event")){
-                    analytics_file.writeString("", false);
-                }
-            }
+                        String responseJson = httpResponse.getResultAsString();
+                        if (responseJson.equals("Create that event")){
+                            analytics_file.writeString("", false);
+                        }
+                    }
 
-            public void failed(Throwable t){
-                System.out.println("Request Failed");
-            }
+                    public void failed(Throwable t){
+                        System.out.println("Request Failed");
+                    }
 
-            @Override
-            public void cancelled(){
-                System.out.println("Cancelled");
-            }
-        });
-
+                    @Override
+                    public void cancelled(){
+                        System.out.println("Cancelled");
+                    }
+                });
+                break;
+        }
     }
 }

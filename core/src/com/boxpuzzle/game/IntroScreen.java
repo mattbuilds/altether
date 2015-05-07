@@ -24,8 +24,7 @@ public class IntroScreen implements Screen {
     private BoxPuzzle game; // Note it's "MyGame" not "Game"
     private SpriteBatch batch;
     private OrthographicCamera camera;
-    private BitmapFont font, big_font, bigger;
-    private Sprite menu;
+    private BitmapFont font, big_font;
 
     // constructor to keep a reference to the main Game class
     public IntroScreen(BoxPuzzle game, int game_width, int game_height){
@@ -34,9 +33,6 @@ public class IntroScreen implements Screen {
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.position.set(camera.viewportWidth/2f, camera.viewportHeight/2f, 0);
         camera.update();
-        FileHandle dirHandle;
-        dirHandle = Gdx.files.internal("fontz.fnt");
-        bigger = new BitmapFont(dirHandle, Gdx.files.internal("../assets/fonts/font.png"), false);
         big_font = new BitmapFont(Gdx.files.internal(this.game.resolution + "/font.fnt"), Gdx.files.internal(this.game.resolution + "/font.png"), false);
         font = new BitmapFont(Gdx.files.internal(this.game.resolution + "/num_font.fnt"), Gdx.files.internal(this.game.resolution + "/num_font.png"), false);
     }
@@ -54,7 +50,7 @@ public class IntroScreen implements Screen {
                   camera.viewportHeight/2f + 5f*big_font.getBounds("All Together").height);
         font.draw(batch, "Play",
                 camera.viewportWidth/2f - font.getBounds("Play").width/2f,
-                camera.viewportHeight/2f + 2f*font.getBounds("Play").height);
+                camera.viewportHeight/2f - 4f*font.getBounds("Play").height);
         /*font.draw(batch, "How to Play",
                 camera.viewportWidth/2f - font.getBounds("How to Play").width/2f,
                 camera.viewportHeight/2f - .5f*font.getBounds("How to Play").height);
@@ -68,8 +64,8 @@ public class IntroScreen implements Screen {
     public void touch(int x, int y){
         if (x > camera.viewportWidth/2f - font.getBounds("Play").width/2f &&
             x < camera.viewportWidth/2f - font.getBounds("Play").width/2f + font.getBounds("Play").width &&
-            y > camera.viewportHeight/2f + 2f*font.getBounds("Play").height - font.getBounds("Play").height &&
-            y < camera.viewportHeight/2f + 2f*font.getBounds("Play").height ){
+            y > camera.viewportHeight/2f - 4f*font.getBounds("Play").height - font.getBounds("Play").height &&
+            y < camera.viewportHeight/2f - 4f*font.getBounds("Play").height ){
             this.game.setMenu();
         }
     }
