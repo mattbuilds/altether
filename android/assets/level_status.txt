@@ -6,117 +6,117 @@
 	status: 0
 },
 3: {
-	status: 1
+	status: 0
 },
 4: {
-	status: 1
+	status: 0
 },
 5: {
-	status: 1
+	status: 0
 },
 6: {
-	status: 1
+	status: 0
 },
 7: {
-	status: 1
+	status: 0
 },
 8: {
-	status: 1
+	status: 0
 },
 9: {
-	status: 1
+	status: 0
 },
 10: {
-	status: 1
+	status: 0
 },
 11: {
-	status: 1
+	status: 0
 },
 12: {
-	status: 1
+	status: 0
 },
 13: {
-	status: 1
+	status: 0
 },
 14: {
-	status: 1
+	status: 0
 },
 15: {
-	status: 1
+	status: 0
 },
 16: {
-	status: 1
+	status: 0
 },
 17: {
-	status: 1
+	status: 0
 },
 18: {
-	status: 1
+	status: 0
 },
 19: {
-	status: 1
+	status: 0
 },
 20: {
-	status: 1
+	status: 0
 },
 21: {
-	status: 1
+	status: 0
 },
 22: {
-	status: 1
+	status: 0
 },
 23: {
-	status: 1
+	status: 0
 },
 24: {
-	status: 1
+	status: 0
 },
 25: {
-	status: 1
+	status: 0
 },
 26: {
-	status: 1
+	status: 0
 },
 27: {
-	status: 1
+	status: 0
 },
 28: {
-	status: 1
+	status: 0
 },
 29: {
-	status: 1
+	status: 0
 },
 30: {
-	status: 1
+	status: 0
 },
 31: {
-	status: 1
+	status: 0
 },
 32: {
-	status: 1
+	status: 0
 },
 33: {
-	status: 1
+	status: 0
 },
 34: {
-	status: 1
+	status: 0
 },
 35: {
-	status: 1
+	status: 0
 },
 36: {
 	status: 0
 },
 37: {
-	status: 1
+	status: 0
 },
 38: {
-	status: 1
+	status: 0
 },
 39: {
-	status: 1
+	status: 0
 },
 40: {
-	status: 1
+	status: 0
 }
 }

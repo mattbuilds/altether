@@ -8,6 +8,9 @@ package com.boxpuzzle.game;
         import com.badlogic.gdx.graphics.g2d.SpriteBatch;
         import com.badlogic.gdx.input.GestureDetector;
         import com.badlogic.gdx.math.Vector2;
+
+        import java.net.InetAddress;
+        import java.net.UnknownHostException;
         import java.util.ArrayList;
         import java.util.List;
 
@@ -20,7 +23,8 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
 
     MainMenuScreen mainMenuScreen;
     GameScreen gameScreen;
-    //IntroScreen introScreen;
+    IntroScreen introScreen;
+    MoreLevels moreLevels;
 
     Analytics analytics;
 
@@ -37,10 +41,11 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
         multiplexer.addProcessor(this);
         Gdx.input.setInputProcessor(multiplexer);
         //mainMenuScreen = new MainMenuScreen(this, WIDTH, HEIGHT);
-        //introScreen = new IntroScreen(this, WIDTH, HEIGHT);
+        introScreen = new IntroScreen(this, WIDTH, HEIGHT);
         gameScreen = new GameScreen(this, WIDTH, HEIGHT);
         mainMenuScreen = new MainMenuScreen(this, WIDTH, HEIGHT);
-        setScreen(mainMenuScreen);
+        moreLevels = new MoreLevels(this, WIDTH, HEIGHT);
+        setScreen(introScreen);
     }
 
     public String getResolution(int res){
@@ -63,6 +68,8 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
     }
 
     public void completedLevel(int lvl_num){
+        int i = lvl_num + 1;
+        analytics.writeEvent("Completed Lvl " + i);
         mainMenuScreen.updateCompletedLevel(lvl_num);
     }
 
@@ -71,6 +78,15 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
     public boolean keyDown (int keycode) {
         if (getScreen() == gameScreen){
             gameScreen.move(keycode);
+        }
+
+        if (getScreen() == mainMenuScreen){
+            if(keycode == 21){
+                keycode = 22;
+            } else if(keycode == 22){
+                keycode = 21;
+            }
+            mainMenuScreen.move(keycode);
         }
         return false;
     }
@@ -107,12 +123,18 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
             gameScreen.touch(x,y);
             return false;
         }
-        /*
+
         if (introScreen == getScreen()){
             y = Gdx.graphics.getHeight() - y;
             introScreen.touch(x,y);
             return false;
-        }*/
+        }
+
+        if (moreLevels == getScreen()){
+            y = Gdx.graphics.getHeight() - y;
+            moreLevels.touch(x,y);
+            return false;
+        }
 
         return false;
     }

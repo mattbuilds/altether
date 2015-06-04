@@ -33,6 +33,7 @@ public class MainMenuScreen implements Screen {
     public JsonValue levels_completed;
     FileHandle level_file;
     FPSLogger fpsLogger;
+    private Boolean moving = false;
 
     // constructor to keep a reference to the main Game class
     public MainMenuScreen(BoxPuzzle game, int game_width, int game_height){
@@ -242,7 +243,7 @@ public class MainMenuScreen implements Screen {
 
     public void cameraMove(){
         if (camera_x == camera.position.x){
-            //
+            moving =false;
         } else if ((int)camera_x > camera.position.x){
             camera.position.x += 1500f*time;
             if (camera.position.x > camera_x){
@@ -265,9 +266,11 @@ public class MainMenuScreen implements Screen {
     }
 
     public void move(int keycode){
-         if (keycode == 21 && page < pages){
+         if (keycode == 21 && page < pages && moving == false){
+             moving = true;
              camera_x = camera.position.x + camera.viewportWidth;
-         } else if (keycode == 22 && page > 1){
+         } else if (keycode == 22 && page > 1 && moving == false){
+             moving = true;
              camera_x = camera.position.x - camera.viewportWidth;
 
          }
@@ -280,7 +283,9 @@ public class MainMenuScreen implements Screen {
             if (clicked == true){
                 //this.game.analytics.writeEvent("Level " + i+i + " selected");
                 //System.out.print(i+1);
-                game.setGameScreen(i+1);
+                i = i + 1;
+                game.analytics.writeEvent("Selected lvl "+ i);
+                game.setGameScreen(i);
             }
         }
     }

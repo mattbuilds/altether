@@ -19,16 +19,16 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IntroScreen implements Screen {
+public class MoreLevels implements Screen {
 
     private BoxPuzzle game; // Note it's "MyGame" not "Game"
     private SpriteBatch batch;
-    private Sprite title, play, more, about, by;
+    private Sprite title, more_text, back, by;
     private OrthographicCamera camera;
     private BitmapFont font, big_font;
 
     // constructor to keep a reference to the main Game class
-    public IntroScreen(BoxPuzzle game, int game_width, int game_height){
+    public MoreLevels(BoxPuzzle game, int game_width, int game_height){
         this.game = game;
         batch = new SpriteBatch();
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -36,28 +36,27 @@ public class IntroScreen implements Screen {
         camera.update();
         title = new Sprite(new Texture(this.game.resolution + "/title.png"));
         title.setPosition(camera.viewportWidth / 2f - title.getWidth() / 2f, camera.viewportHeight - title.getHeight() * 1.4f);
+        more_text = new Sprite(new Texture(this.game.resolution + "/more_text.png"));
+        more_text.setPosition(camera.viewportWidth / 2f - more_text.getWidth() / 2f, camera.viewportHeight / 2f - more_text.getHeight() / 2f);
 
-        play = new Sprite(new Texture(this.game.resolution + "/play.png"));
-        play.setPosition(camera.viewportWidth/2f - play.getWidth()/2f, camera.viewportHeight/2f + play.getHeight());
-        more = new Sprite(new Texture(this.game.resolution + "/more.png"));
-        more.setPosition(camera.viewportWidth/2f - more.getWidth()/2f, camera.viewportHeight/2f - .76f * more.getHeight());
-        about = new Sprite(new Texture(this.game.resolution + "/about.png"));
-        about.setPosition(camera.viewportWidth/2f - about.getWidth()/2f, camera.viewportHeight/2f - 2.5f *about.getHeight());
         by = new Sprite(new Texture(this.game.resolution + "/by.png"));
         by.setPosition(camera.viewportWidth - by.getWidth(), 0);
+
+        back = new Sprite(new Texture(this.game.resolution + "/back_text.png"));
+        back.setPosition(camera.viewportWidth / 2f - back.getWidth() / 2f, (more_text.getY() + by.getHeight())/2f - back.getHeight()/2f);
+
     }
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(71 / 255f, 81 / 255f, 93/255f, 1);
+        Gdx.gl.glClearColor(71 / 255f, 81 / 255f, 93 / 255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.setProjectionMatrix(camera.combined);
 
         batch.begin();
         title.draw(batch);
-        play.draw(batch);
-        more.draw(batch);
-        about.draw(batch);
+        more_text.draw(batch);
+        back.draw(batch);
         by.draw(batch);
         batch.end();
     }
@@ -71,12 +70,9 @@ public class IntroScreen implements Screen {
     }
 
     public void touch(int x, int y){
-        if(spriteTouched(play, x, y) )
-            this.game.setMenu();
-        if(spriteTouched(more, x, y))
-            this.game.setScreen(this.game.moreLevels);
+        if(spriteTouched(back, x, y) )
+            this.game.setScreen(this.game.introScreen);
     }
-
 
     @Override
     public void resize(int width, int height) {

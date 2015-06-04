@@ -177,6 +177,7 @@ public class GameScreen implements Screen{
     public void touch (int x, int y) {
         if (won == true){
             if (spriteTouch(x,y,next_popup)){
+                game.analytics.writeEvent("Continuted from lvl "+lvl_num);
                 won = false;
                 level = new Level(this.game);
                 lvl_num += 1;
@@ -184,26 +185,31 @@ public class GameScreen implements Screen{
             }
 
             if (spriteTouch(x,y,menu_popup)){
+                game.analytics.writeEvent("Main menu from lvl "+lvl_num);
                 won = false;
                 game.setMenu();
             }
         } else{
             if (spriteTouch(x,y, menu)){
+                game.analytics.writeEvent("Main menu from lvl "+lvl_num);
                 game.setMenu();
             }
 
             if (spriteTouch(x,y,refresh)){
+                game.analytics.writeEvent("Refresh lvl "+lvl_num);
                 level = new Level(this.game);
                 level.load(lvl_num, levels);
             }
 
             if (spriteTouch(x,y,previous) && lvl_num != 1){
+                game.analytics.writeEvent("Previous from lvl "+lvl_num);
                 level = new Level(this.game);
                 lvl_num -=1;
                 level.load(lvl_num, levels);
             }
 
             if (spriteTouch(x,y, next) && lvl_num != this.game.mainMenuScreen.levels_completed.size){
+                game.analytics.writeEvent("Next from lvl "+lvl_num);
                 level = new Level(this.game);
                 lvl_num += 1;
                 level.load(lvl_num, levels);
