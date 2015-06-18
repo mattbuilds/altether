@@ -168,7 +168,16 @@ public class GameScreen implements Screen{
 
     public void move (int keycode) {
         if (keycode == 46){
+            game.analytics.writeEvent("Refresh lvl "+lvl_num);
             level = new Level(this.game);
+            level.load(lvl_num, levels);
+        }
+
+        if (keycode == 66 && won == true){
+            game.analytics.writeEvent("Continuted from lvl "+lvl_num);
+            won = false;
+            level = new Level(this.game);
+            lvl_num += 1;
             level.load(lvl_num, levels);
         }
         level.handleInput(keycode);

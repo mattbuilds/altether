@@ -25,6 +25,7 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
     GameScreen gameScreen;
     IntroScreen introScreen;
     MoreLevels moreLevels;
+    AboutScreen aboutScreen;
 
     Analytics analytics;
 
@@ -45,6 +46,7 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
         gameScreen = new GameScreen(this, WIDTH, HEIGHT);
         mainMenuScreen = new MainMenuScreen(this, WIDTH, HEIGHT);
         moreLevels = new MoreLevels(this, WIDTH, HEIGHT);
+        aboutScreen = new AboutScreen(this, WIDTH, HEIGHT);
         setScreen(introScreen);
     }
 
@@ -133,6 +135,12 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
         if (moreLevels == getScreen()){
             y = Gdx.graphics.getHeight() - y;
             moreLevels.touch(x,y);
+            return false;
+        }
+
+        if (aboutScreen == getScreen()){
+            y = Gdx.graphics.getHeight() - y;
+            aboutScreen.touch(x,y);
             return false;
         }
 

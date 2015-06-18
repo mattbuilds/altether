@@ -19,16 +19,16 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoreLevels implements Screen {
+public class AboutScreen implements Screen {
 
     private BoxPuzzle game; // Note it's "MyGame" not "Game"
     private SpriteBatch batch;
-    private Sprite title, more_text, back, by;
+    private Sprite title, more_text, back, by, website, more_games;
     private OrthographicCamera camera;
     private BitmapFont font, big_font;
 
     // constructor to keep a reference to the main Game class
-    public MoreLevels(BoxPuzzle game, int game_width, int game_height){
+    public AboutScreen(BoxPuzzle game, int game_width, int game_height){
         this.game = game;
         batch = new SpriteBatch();
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -36,15 +36,21 @@ public class MoreLevels implements Screen {
         camera.update();
         title = new Sprite(new Texture(this.game.resolution + "/title.png"));
         title.setPosition(camera.viewportWidth / 2f - title.getWidth() / 2f, camera.viewportHeight - title.getHeight() * 1.4f);
-        more_text = new Sprite(new Texture(this.game.resolution + "/more_text.png"));
-        more_text.setPosition(camera.viewportWidth / 2f - more_text.getWidth() / 2f, camera.viewportHeight / 2f - more_text.getHeight() / 2f);
-
+        more_text = new Sprite(new Texture(this.game.resolution + "/about_text.png"));
+        website = new Sprite(new Texture(this.game.resolution + "/website.png"));
 
         by = new Sprite(new Texture(this.game.resolution + "/by.png"));
         by.setPosition(camera.viewportWidth - by.getWidth(), 0);
 
         back = new Sprite(new Texture(this.game.resolution + "/back_text.png"));
-        back.setPosition(camera.viewportWidth / 2f - back.getWidth() / 2f, (more_text.getY() + by.getHeight())/2f - back.getHeight()/2f);
+
+        more_games = new Sprite(new Texture(this.game.resolution + "/more_games.png"));
+
+        more_text.setPosition(camera.viewportWidth / 2f - more_text.getWidth() / 2f, camera.viewportHeight / 2f - (more_text.getHeight() -website.getHeight()*1.4f - more_games.getHeight()*1.4f)/ 2f);
+        website.setPosition(camera.viewportWidth / 2f - website.getWidth() / 2f, more_text.getY() - website.getHeight()*1.4f);
+        more_games.setPosition(camera.viewportWidth / 2f - website.getWidth() / 2f,  website.getY() - more_games.getHeight()*1.4f);
+
+        back.setPosition(camera.viewportWidth / 2f - back.getWidth() / 2f, (more_games.getY() + by.getHeight())/2f - back.getHeight()/2f);
 
     }
 
@@ -59,6 +65,8 @@ public class MoreLevels implements Screen {
         more_text.draw(batch);
         back.draw(batch);
         by.draw(batch);
+        website.draw(batch);
+        more_games.draw(batch);
         batch.end();
     }
 

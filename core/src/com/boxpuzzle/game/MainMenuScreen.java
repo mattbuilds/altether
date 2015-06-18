@@ -25,7 +25,7 @@ public class MainMenuScreen implements Screen {
     private FitViewport viewport;
     private SpriteBatch batch,  fixed_batch;
     private Texture check, texture, off;
-    private Sprite  on, box, grey;
+    private Sprite  on, top_bar, back;
     private List<Sprite> sprites, checks, circles;
     private float page, time, camera_x, sprite_x_offset, sprite_y_offset, scale_x, scale_y;
     private int pages;
@@ -45,15 +45,31 @@ public class MainMenuScreen implements Screen {
         checks = new ArrayList<Sprite>();
         circles = new ArrayList<Sprite>();
 
-        level_file = Gdx.files.internal("level_status.txt");
+        switch (Gdx.app.getType()) {
+            case WebGL:
+                level_file = Gdx.files.internal("level_status.txt");
+                break;
+            default:
+                level_file = Gdx.files.local("level_status.txt");
+                break;
+        }
+
         try{
             levels_completed = new JsonReader().parse(level_file.readString());
         } catch (Exception e){
             String text = "{1:{status:0},2:{status:0},3:{status:0},4:{status:0},5:{status:0},6:{status:0},7:{status:0},8:{status:0},9:{status:0},10:{status:0},11:{status:0},12:{status:0},13:{status:0},14:{status:0},15:{status:0},16:{status:0},17:{status:0},18:{status:0},19:{status:0},20:{status:0},21:{status:0},22:{status:0},23:{status:0},24:{status:0},25:{status:0},26:{status:0},27:{status:0},28:{status:0},29:{status:0},30:{status:0},31:{status:0},32:{status:0},33:{status:0},34:{status:0},35:{status:0},36:{status:0},37:{status:0},38:{status:0},39:{status:0},40:{status:0}}";
-            //level_file.writeString(text, false);
-            level_file = Gdx.files.local("level_status.txt");
+            switch (Gdx.app.getType()) {
+                case WebGL:
+                    level_file = Gdx.files.internal("level_status.txt");
+                    break;
+                default:
+                    level_file.writeString(text, false);
+                    levels_completed = new JsonReader().parse(level_file.readString());
+                    break;
+            }
             levels_completed = new JsonReader().parse(level_file.readString());
         }
+        System.out.println(levels_completed);
         pages = (levels_completed.size/30)+1;
 
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -62,14 +78,18 @@ public class MainMenuScreen implements Screen {
         camera_x = camera.viewportWidth/2f;
 
         fixed_cam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        fixed_cam.position.set(fixed_cam.viewportWidth/2f, fixed_cam.viewportHeight/2f, 0);
+        fixed_cam.position.set(fixed_cam.viewportWidth / 2f, fixed_cam.viewportHeight / 2f, 0);
         fixed_cam.update();
 
         big_font = new BitmapFont(Gdx.files.internal(this.game.resolution + "/font.fnt"), Gdx.files.internal(this.game.resolution + "/font.png"), false);
         font = new BitmapFont(Gdx.files.internal(this.game.resolution + "/num_font.fnt"), Gdx.files.internal(this.game.resolution + "/num_font.png"), false);
-        //font.setColor(1, 1, 1, 1);
-        //font.setScale(.35f);
-        //font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+        top_bar = new Sprite(new Texture("top_bar.png"));
+        top_bar.setSize(camera.viewportWidth, camera.viewportWidth/10f *1.5f);
+        top_bar.setPosition(0, Gdx.graphics.getHeight() - top_bar.getHeight());
+
+        back = new Sprite(new Texture(this.game.resolution + "/back_text.png"));
+        back.setPosition( back.getWidth() *.1f,camera.viewportHeight - top_bar.getHeight()/2f - back.getHeight()/2f);
 
         check = new Texture(this.game.resolution + "/check.png");
         check.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -77,7 +97,7 @@ public class MainMenuScreen implements Screen {
         batch = new SpriteBatch();
         fixed_batch = new SpriteBatch();
         texture = new Texture(this.game.resolution + "/box.png");
-        for (int i = 1; i<= 40; i++){
+        for (int i = 1; i<= levels_completed.size; i++){
             Sprite adding = new Sprite(texture);
             setPos(i, adding);
         }
@@ -109,7 +129,7 @@ public class MainMenuScreen implements Screen {
             sprites.add(adding);
         }
 */
-        for (int i = 1; i <= 40; i++) {
+        for (int i = 1; i <= levels_completed.size; i++) {
             if (levels_completed.get(Integer.toString(i)).getString("status").toString().equals("1")) {
                 float sprite_x = sprites.get(i - 1).getX();
                 float sprite_y = sprites.get(i - 1).getY();
@@ -155,45 +175,39 @@ public class MainMenuScreen implements Screen {
             width_mult = adding.getWidth()*3.5f;
         }
 
-        offset = (num+9)/30;
+        offset = (num-1)/30;
         width_mult = offset*camera.viewportWidth + width_mult;
 
-        if (num <= 20){
-            y_num = ((num-1)%30)/5;
-            if (y_num == 0){
-                height_mult = adding.getHeight()*2f;
-            } else if (y_num == 1){
-                height_mult = adding.getHeight()*.25f;
-            } else if (y_num == 2){
-                height_mult = adding.getHeight()* -1.5f;
-            } else{
-                height_mult = adding.getHeight()*-3.25f;
-            }
-        } else {
-            y_num = ((num - 21) % 30) / 5;
-            if (y_num == 0) {
-                height_mult = adding.getHeight() * 5.5f;
-            } else if (y_num == 1) {
-                height_mult = adding.getHeight() * 3.75f;
-            } else if (y_num == 2) {
-                height_mult = adding.getHeight() * 2f;
-            } else if (y_num == 3) {
-                height_mult = adding.getHeight() * .25f;
-            } else if (y_num == 4) {
-                height_mult = adding.getHeight() * -1.5f;
-            } else {
-                height_mult = adding.getHeight() * -3.25f;
-            }
+        y_num = ((num-1)%30)/5;
+        if (y_num == 0){
+            height_mult = adding.getHeight()*4.5f;
+        } else if (y_num == 1){
+            height_mult = adding.getHeight()*2.75f;
+        } else if (y_num == 2){
+            height_mult = adding.getHeight()* 1f ;
+        } else if (y_num == 3){
+            height_mult = adding.getHeight() *-.75f;
+        } else if (y_num == 4){
+            height_mult = adding.getHeight()*-2.5f;
+        } else{
+            height_mult = adding.getHeight()*-4.25f;
         }
 
-        adding.setPosition(camera.viewportWidth/2f - adding.getWidth()/2 + width_mult, camera.viewportHeight/2f - adding.getHeight()/2+height_mult);
+
+        adding.setPosition(camera.viewportWidth / 2f - adding.getWidth() / 2 + width_mult, camera.viewportHeight / 2f - adding.getHeight() / 2 + height_mult);
         sprites.add(adding);
     }
 
     public void updateCompletedLevel(int lvl_num){
         if (levels_completed.get(Integer.toString(lvl_num+1)).getString("status").toString().equals("0")){
             levels_completed.get(Integer.toString(lvl_num+1)).get("status").set(1);
-            //level_file.writeString(levels_completed.toString(), false);
+            switch (Gdx.app.getType()) {
+                case WebGL:
+                    break;
+                default:
+                    level_file.writeString(levels_completed.toString(), false);
+                    break;
+            }
             float sprite_x = sprites.get(lvl_num).getX();
             float sprite_y = sprites.get(lvl_num).getY();
             checks.add(new Sprite(check));
@@ -210,12 +224,6 @@ public class MainMenuScreen implements Screen {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         //box.draw(batch);
-        big_font.draw(batch, "ALL TOGETHER",
-                camera.viewportWidth/2f - big_font.getBounds("ALL TOGETHER").width/2f,
-                camera.viewportHeight/2f + 7f*big_font.getBounds("ALL TOGETHER").height);
-        font.draw(batch, "A Puzzle Game",
-                camera.viewportWidth/2f - font.getBounds("A Puzzle Game").width/2f,
-                camera.viewportHeight/2f + 8.25f*font.getBounds("A Puzzle Game").height);
         for (int i = 0; i<sprites.size(); i++){
             sprites.get(i).draw(batch);
         }
@@ -238,6 +246,8 @@ public class MainMenuScreen implements Screen {
             circles.get(i).draw(fixed_batch);
         }
         on.draw(fixed_batch);
+        top_bar.draw(fixed_batch);
+        back.draw(fixed_batch);
         fixed_batch.end();
     }
 
@@ -278,6 +288,9 @@ public class MainMenuScreen implements Screen {
 
     public void touch(int x, int y){
         Boolean clicked = false;
+        if (number_click(x,y, back))
+            game.setScreen(this.game.introScreen);
+
         for (int i = 0; i< sprites.size(); i++){
             clicked = number_click(x,y, sprites.get(i));
             if (clicked == true){

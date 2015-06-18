@@ -75,6 +75,8 @@ public class IntroScreen implements Screen {
             this.game.setMenu();
         if(spriteTouched(more, x, y))
             this.game.setScreen(this.game.moreLevels);
+        if(spriteTouched(about, x, y))
+            this.game.setScreen(this.game.aboutScreen);
     }
 
 

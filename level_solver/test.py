@@ -252,7 +252,7 @@ def run_everything():
 		run_everything()
 
 moves = {}
-size = 9
+size = 10
 boxes = 4
 run_everything()
 
