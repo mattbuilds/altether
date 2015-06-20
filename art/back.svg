@@ -15,7 +15,7 @@
    width="62.5"
    height="62.5"
    xml:space="preserve"
-   sodipodi:docname="arrow.svg"
+   sodipodi:docname="next.svg"
    inkscape:export-filename="C:\Users\Matt\Documents\Dev\libgdx\box_puzzle\android\assets\next.png"
    inkscape:export-xdpi="138.24001"
    inkscape:export-ydpi="138.24001"><metadata
@@ -55,7 +55,7 @@
      transform="matrix(1.25,0,0,-1.25,0,62.5)"><g
        id="g6832"
        style="fill:#ffffff;fill-opacity:1"
-       transform="matrix(-0.99997628,0.0068878,-0.0068878,-0.99997628,50.171601,49.826812)"
+       transform="matrix(0.99997628,-0.0068878,0.0068878,0.99997628,-0.17160033,0.1727883)"
        inkscape:export-filename="C:\Users\Matt\Documents\Dev\libgdx\box_puzzle\android\assets\g6832.png"
        inkscape:export-xdpi="138.24001"
        inkscape:export-ydpi="138.24001"><g

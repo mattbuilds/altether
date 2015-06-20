@@ -43,7 +43,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -295,7 +295,7 @@
            style="font-size:56px"
            ry="0" /></flowRegion><flowPara
          style="font-size:56px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ffffff;font-family:Arial;-inkscape-font-specification:Arial"
-         id="flowPara5259-1-22-2">by 23 Train Studios</flowPara></flowRoot>    <path
+         id="flowPara5259-1-22-2">by Luthar Vaughn</flowPara></flowRoot>    <path
        sodipodi:type="star"
        style="fill:#47515d;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="path5261-6-3"
@@ -326,5 +326,5 @@
            height="187.88837"
            x="-22.223356"
            y="162.4178" /></flowRegion><flowPara
-         id="flowPara4604"></flowPara></flowRoot>  </g>
+         id="flowPara4604" /></flowRoot>  </g>
 </svg>
