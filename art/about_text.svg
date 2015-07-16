@@ -9,12 +9,12 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="380.00012"
-   height="215.7213"
+   width="380"
+   height="250"
    id="svg3126"
    version="1.1"
    inkscape:version="0.48.2 r9819"
-   sodipodi:docname="New document 7">
+   sodipodi:docname="about_text.svg">
   <defs
      id="defs3128" />
   <sodipodi:namedview
@@ -24,9 +24,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.35"
-     inkscape:cx="1130.7188"
-     inkscape:cy="-492.12998"
+     inkscape:zoom="1.979899"
+     inkscape:cx="193.88013"
+     inkscape:cy="122.44889"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -47,7 +47,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -55,14 +55,14 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(755.71881,518.34624)">
+     transform="translate(755.71433,552.63785)">
     <rect
-       style="fill:#323232;fill-opacity:0.19607843;stroke:#323232;stroke-width:3.53286648;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:0.19607843;stroke-dasharray:none"
+       style="fill:#323232;fill-opacity:0.19607843;stroke:#323232;stroke-width:3.80414796;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:0.19607843;stroke-dasharray:none"
        id="rect4084-1-1"
-       width="376.46713"
-       height="212.18141"
-       x="-753.94788"
-       y="-516.58569"
+       width="376.19586"
+       height="246.19585"
+       x="-753.81226"
+       y="-550.73578"
        inkscape:export-filename="C:\Users\Matt\Documents\Dev\libgdx\box_puzzle\android\assets\480\about_text.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
@@ -70,7 +70,7 @@
        xml:space="preserve"
        id="flowRoot3785-7"
        style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
-       transform="translate(-947.33357,-1020.4014)"
+       transform="matrix(1.0008688,0,0,1.0012084,-949.23909,-1045.7834)"
        inkscape:export-filename="C:\Users\Matt\Documents\Dev\libgdx\box_puzzle\android\assets\480\about_text.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90"><flowRegion
@@ -82,5 +82,5 @@
            y="526.64789"
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ffffff;fill-opacity:1;font-family:Arial;-inkscape-font-specification:Arial" /></flowRegion><flowPara
          id="flowPara3791-9"
-         style="font-size:36px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;font-family:Arial;-inkscape-font-specification:Arial">Created by 23 Train Studios, a one-man game studio. Check out the website and some more games </flowPara></flowRoot>  </g>
+         style="font-size:36px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;font-family:Arial;-inkscape-font-specification:Arial">Created by Luthar Vaughn. Website at lutharvaughn.com More games coming soon. Stay tuned. </flowPara></flowRoot>  </g>
 </svg>

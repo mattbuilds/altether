@@ -28,20 +28,21 @@ public class Level {
     Player player1, player2, player3, player4, player5;
     int grid_size = 8;
 
-    public Level(BoxPuzzle game){
+    public Level(BoxPuzzle game, Sprite background_grid, Texture red_text, Texture red_goal, Texture blue_text,
+                 Texture blue_goal, Texture green_text, Texture green_goal, Texture yellow_text, Texture yellow_goal){
         walls = new ArrayList<Box>();
         //wall_img = new Texture("wall.jpg");
         boxes =  new ArrayList<Box>();
 
-        background_grid = new Sprite(new Texture(game.resolution + "/tile.png"));
-        red_text = new Texture(Gdx.files.internal(game.resolution + "/red_tile.png"), true);
-        red_goal = new Texture(game.resolution + "/red_goal.png");
-        blue_text = new Texture(game.resolution + "/blue_tile.png");
-        blue_goal = new Texture(game.resolution +"/blue_goal.png");
-        green_text = new Texture(game.resolution +"/green_tile.png");
-        green_goal = new Texture(game.resolution +"/green_goal.png");
-        yellow_text = new Texture(game.resolution + "/yellow_tile.png");
-        yellow_goal = new Texture(game.resolution + "/yellow_goal.png");
+        this.background_grid = background_grid;
+        this.red_text = red_text;
+        this.red_goal = red_goal;
+        this.blue_text = blue_text;
+        this.blue_goal = blue_goal;
+        this.green_text = green_text;
+        this.green_goal = green_goal;
+        this.yellow_text = yellow_text;
+        this.yellow_goal = yellow_goal;
     }
 
     public void load(int lvl_num, JsonValue levels) {
@@ -123,8 +124,8 @@ public class Level {
         for (int i = 0; i < boxes.size(); i++){
             boxes.get(i).drawGoal(batch, x_offset, y_offset);
         }
-
         for (int i = 0; i < boxes.size(); i++){
+
             boxes.get(i).draw(batch,x_offset, y_offset);
         }
 
@@ -149,6 +150,7 @@ public class Level {
             }
         }
         game.completedLevel(lvl_num-1);
+        game.analytics.createEvent();
         return true;
     }
 

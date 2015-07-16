@@ -30,6 +30,10 @@ public class GameScreen implements Screen{
     Sprite top_bar, menu, back, refresh, previous, next, popup, lvl_comp, menu_popup, next_popup, grey;
     BitmapFont font, popup_font;
 
+    Texture red_text, blue_text, red_goal, blue_goal, green_text, green_goal, yellow_text, yellow_goal,
+            purple_text, purple_goal, wall_img;
+    Sprite background_grid;
+
     Player player;
     List<Box> boxes;
     Grid grid;
@@ -53,27 +57,37 @@ public class GameScreen implements Screen{
         levels = new JsonReader().parse(text);
 
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        camera.position.set(camera.viewportWidth/2f, camera.viewportHeight/2f, 0);
+        camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
         camera.update();
 
         fixed_batch = new SpriteBatch();
         grey = new Sprite(new Texture("grey.png"));
-        grey.setPosition(0,0);
+        grey.setPosition(0, 0);
         grey.setSize(camera.viewportWidth, camera.viewportHeight);
 
         top_bar = new Sprite(new Texture("top_bar.png"));
-        top_bar.setSize(camera.viewportWidth, camera.viewportWidth/10f *1.5f);
+        top_bar.setSize(camera.viewportWidth, camera.viewportWidth / 10f * 1.5f);
         top_bar.setPosition(0,Gdx.graphics.getHeight() - top_bar.getHeight());
 
         menu = new Sprite(new Texture(this.game.resolution + "/menu.png"));
-        menu.setPosition(camera.viewportWidth - menu.getWidth(),camera.viewportHeight - top_bar.getHeight()/2f - menu.getHeight()/2f);
+        menu.setPosition(camera.viewportWidth - menu.getWidth(), camera.viewportHeight - top_bar.getHeight() / 2f - menu.getHeight() / 2f);
+
+        background_grid = new Sprite(new Texture(game.resolution + "/tile.png"));
+        red_text = new Texture(Gdx.files.internal(game.resolution + "/red_tile.png"), true);
+        red_goal = new Texture(game.resolution + "/red_goal.png");
+        blue_text = new Texture(game.resolution + "/blue_tile.png");
+        blue_goal = new Texture(game.resolution +"/blue_goal.png");
+        green_text = new Texture(game.resolution +"/green_tile.png");
+        green_goal = new Texture(game.resolution +"/green_goal.png");
+        yellow_text = new Texture(game.resolution + "/yellow_tile.png");
+        yellow_goal = new Texture(game.resolution + "/yellow_goal.png");
 
         batch = new SpriteBatch();
-        level = new Level(this.game);
+        level = new Level(this.game, background_grid, red_text, red_goal, blue_text, blue_goal, green_text, green_goal, yellow_text, yellow_goal);
         level.load(lvl_num, levels);
 
         font = new BitmapFont(Gdx.files.internal(this.game.resolution +"/font.fnt"), Gdx.files.internal(this.game.resolution +"/font.png"), false);
-        font.setColor(221/255f, 181/255f, 85/255f, 1);
+        //font.setColor(221/255f, 181/255f, 85/255f, 1);
         //font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         popup_font = new BitmapFont(Gdx.files.internal(this.game.resolution +"/font.fnt"), Gdx.files.internal(this.game.resolution +"/font.png"), false);
@@ -123,7 +137,7 @@ public class GameScreen implements Screen{
     public void load_level(int id){
         System.out.println("In Level");
         lvl_num = id;
-        level = new Level(this.game);
+        level = new Level(this.game, background_grid, red_text, red_goal, blue_text, blue_goal, green_text, green_goal, yellow_text, yellow_goal);
         level.load(lvl_num, levels);
     }
 
@@ -160,7 +174,9 @@ public class GameScreen implements Screen{
             popup.draw(batch);
             lvl_comp.draw(batch);
             menu_popup.draw(batch);
-            next_popup.draw(batch);
+            if (lvl_num !=  this.game.mainMenuScreen.levels_completed.size){
+                next_popup.draw(batch);
+            }
         }
         batch.end();
         fpsLogger.log();
@@ -169,14 +185,14 @@ public class GameScreen implements Screen{
     public void move (int keycode) {
         if (keycode == 46){
             game.analytics.writeEvent("Refresh lvl "+lvl_num);
-            level = new Level(this.game);
+            level = new Level(this.game, background_grid, red_text, red_goal, blue_text, blue_goal, green_text, green_goal, yellow_text, yellow_goal);
             level.load(lvl_num, levels);
         }
 
         if (keycode == 66 && won == true){
             game.analytics.writeEvent("Continuted from lvl "+lvl_num);
             won = false;
-            level = new Level(this.game);
+            level = new Level(this.game, background_grid, red_text, red_goal, blue_text, blue_goal, green_text, green_goal, yellow_text, yellow_goal);
             lvl_num += 1;
             level.load(lvl_num, levels);
         }
@@ -188,7 +204,7 @@ public class GameScreen implements Screen{
             if (spriteTouch(x,y,next_popup)){
                 game.analytics.writeEvent("Continuted from lvl "+lvl_num);
                 won = false;
-                level = new Level(this.game);
+                level = new Level(this.game, background_grid, red_text, red_goal, blue_text, blue_goal, green_text, green_goal, yellow_text, yellow_goal);
                 lvl_num += 1;
                 level.load(lvl_num, levels);
             }
@@ -206,20 +222,20 @@ public class GameScreen implements Screen{
 
             if (spriteTouch(x,y,refresh)){
                 game.analytics.writeEvent("Refresh lvl "+lvl_num);
-                level = new Level(this.game);
+                level = new Level(this.game, background_grid, red_text, red_goal, blue_text, blue_goal, green_text, green_goal, yellow_text, yellow_goal);
                 level.load(lvl_num, levels);
             }
 
             if (spriteTouch(x,y,previous) && lvl_num != 1){
                 game.analytics.writeEvent("Previous from lvl "+lvl_num);
-                level = new Level(this.game);
+                level = new Level(this.game, background_grid, red_text, red_goal, blue_text, blue_goal, green_text, green_goal, yellow_text, yellow_goal);
                 lvl_num -=1;
                 level.load(lvl_num, levels);
             }
 
             if (spriteTouch(x,y, next) && lvl_num != this.game.mainMenuScreen.levels_completed.size){
                 game.analytics.writeEvent("Next from lvl "+lvl_num);
-                level = new Level(this.game);
+                level = new Level(this.game, background_grid, red_text, red_goal, blue_text, blue_goal, green_text, green_goal, yellow_text, yellow_goal);
                 lvl_num += 1;
                 level.load(lvl_num, levels);
             }

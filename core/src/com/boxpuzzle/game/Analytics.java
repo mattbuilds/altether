@@ -4,15 +4,11 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net;
 //import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.Timer;
 
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonReader;
-import com.badlogic.gdx.utils.JsonValue;
-import com.badlogic.gdx.utils.JsonWriter;
-
-import java.util.LinkedHashMap;
+import com.badlogic.gdx.utils.*;
 
 /**
  * Created by Matt on 3/9/15.
@@ -21,17 +17,27 @@ public class Analytics {
     private Net.HttpRequest httpRequest;
     private SomeObject obj;
     private Json json;
-    private String strObj;
+    private String strObj, name, appType;
     private long session;
     FileHandle analytics_file;
-    private String appType;
+    private Preferences pref;
+    private java.util.Timer autoModeTime;
 
     public Analytics() {
         appType = Gdx.app.getType().toString();
-        System.out.println(appType);
+        java.util.Date date = new java.util.Date();
+        session = date.getTime();
+        pref = Gdx.app.getPreferences("Prefs");
+        autoModeTime = new Timer();
+
+        name = pref.getString("id", "No Id");
+        if (name.equals("No Id")){
+            name = String.valueOf(session);
+            pref.putString("id", name);
+            pref.flush();
+        }
+
         if (appType == "WebGL"){
-            java.util.Date date = new java.util.Date();
-            session = date.getTime();
             httpRequest = new Net.HttpRequest("POST");
 
             httpRequest.setHeader("Content-Type", "application/json");
@@ -42,10 +48,9 @@ public class Analytics {
             analytics_file.writeString("", true);
 
             obj = new SomeObject();
-            java.util.Date date = new java.util.Date();
             obj.event = "Start";
-            obj.user = "1";
-            obj.session = date.getTime();
+            obj.user = name;
+            obj.session = session;
 
             json = new Json();
             json.setOutputType(JsonWriter.OutputType.json);
@@ -63,7 +68,7 @@ public class Analytics {
     public void writeEvent(String event){
         switch (Gdx.app.getType()){
             case WebGL:
-                strObj = "{\"events\":[{\"user\":\"ip_address\",\"session\":"+session+",\"event\":\""+ event +"\"}]}";
+                strObj = "{\"events\":[{\"user\":\""+name+"\",\"session\":"+session+",\"event\":\""+ event +"\"}]}";
                 createEvent();
                 break;
             default:
@@ -82,8 +87,6 @@ public class Analytics {
         switch (Gdx.app.getType()){
             case WebGL:
                 httpRequest.setContent(strObj);
-                //Gdx.net.sendHttpRequest(httpRequest, null);
-
                 Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener() {
 
                     public void handleHttpResponse(Net.HttpResponse httpResponse){
@@ -107,31 +110,36 @@ public class Analytics {
                 });
                 break;
             default:
-                httpRequest.setContent("{\"events\":[" + readFile() + "]}");
-                //Gdx.net.sendHttpRequest(httpRequest, null);
-
-                Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener() {
-
-                    public void handleHttpResponse(Net.HttpResponse httpResponse){
-                        int statusCode = httpResponse.getStatus().getStatusCode();
-                        System.out.println(statusCode);
-
-                        String responseJson = httpResponse.getResultAsString();
-                        if (responseJson.equals("Create that event")){
-                            System.out.println("Create events SUCCESS");
-                            analytics_file.writeString("", false);
-                        }
-                    }
-
-                    public void failed(Throwable t){
-                        System.out.println("Request Failed");
-                    }
-
+                this.autoModeTime.purge();
+                this.autoModeTime.schedule(new TimerTask() {
                     @Override
-                    public void cancelled(){
-                        System.out.println("Cancelled");
+                    public void run() {
+                        httpRequest.setContent("{\"events\":[" + readFile() + "]}");
+                        Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener() {
+
+                            public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                                int statusCode = httpResponse.getStatus().getStatusCode();
+                                System.out.println(statusCode);
+
+                                String responseJson = httpResponse.getResultAsString();
+                                if (responseJson.equals("Event Created")) {
+                                    System.out.println("Create events SUCCESS");
+                                    analytics_file.writeString("", false);
+                                }
+                            }
+
+                            public void failed(Throwable t) {
+                                System.out.println("Request Failed");
+                                System.out.println(t);
+                            }
+
+                            @Override
+                            public void cancelled() {
+                                System.out.println("Cancelled");
+                            }
+                        });
                     }
-                });
+                }, 0);
                 break;
         }
     }

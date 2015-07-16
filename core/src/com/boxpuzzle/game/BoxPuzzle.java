@@ -36,11 +36,11 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
         analytics.writeEvent("Game Started");
         analytics.createEvent();
         resolution = getResolution(Gdx.graphics.getWidth());
-        //System.out.println(resolution);
         InputMultiplexer multiplexer  = new InputMultiplexer();
         multiplexer.addProcessor(new GestureDetector(this));
         multiplexer.addProcessor(this);
         Gdx.input.setInputProcessor(multiplexer);
+        Gdx.input.setCatchBackKey(true);
         //mainMenuScreen = new MainMenuScreen(this, WIDTH, HEIGHT);
         introScreen = new IntroScreen(this, WIDTH, HEIGHT);
         gameScreen = new GameScreen(this, WIDTH, HEIGHT);
@@ -51,8 +51,12 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
     }
 
     public String getResolution(int res){
-        if (res >=640){
-            res = 640;
+        if (res >=  1440){
+            res = 1440;
+        } else if (res >= 960){
+            res = 960;
+        }else if (res >=720){
+            res = 720;
         } else{
             res = 480;
         }
@@ -78,6 +82,22 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
     // Input Processor Functions
     @Override
     public boolean keyDown (int keycode) {
+        if (keycode == Input.Keys.BACK){
+            if (getScreen() == gameScreen){
+                setScreen(mainMenuScreen);
+                return false;
+            }
+
+            if (getScreen() == mainMenuScreen || getScreen() == moreLevels || getScreen() == aboutScreen){
+                setScreen(introScreen);
+                return  false;
+            }
+
+            if (getScreen() == introScreen){
+                Gdx.app.exit();
+            }
+        }
+
         if (getScreen() == gameScreen){
             gameScreen.move(keycode);
         }

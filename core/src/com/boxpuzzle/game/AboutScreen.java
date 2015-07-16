@@ -65,8 +65,8 @@ public class AboutScreen implements Screen {
         more_text.draw(batch);
         back.draw(batch);
         by.draw(batch);
-        website.draw(batch);
-        more_games.draw(batch);
+        //website.draw(batch);
+        //more_games.draw(batch);
         batch.end();
     }
 

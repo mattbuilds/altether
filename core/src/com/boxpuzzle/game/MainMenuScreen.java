@@ -57,7 +57,7 @@ public class MainMenuScreen implements Screen {
         try{
             levels_completed = new JsonReader().parse(level_file.readString());
         } catch (Exception e){
-            String text = "{1:{status:0},2:{status:0},3:{status:0},4:{status:0},5:{status:0},6:{status:0},7:{status:0},8:{status:0},9:{status:0},10:{status:0},11:{status:0},12:{status:0},13:{status:0},14:{status:0},15:{status:0},16:{status:0},17:{status:0},18:{status:0},19:{status:0},20:{status:0},21:{status:0},22:{status:0},23:{status:0},24:{status:0},25:{status:0},26:{status:0},27:{status:0},28:{status:0},29:{status:0},30:{status:0},31:{status:0},32:{status:0},33:{status:0},34:{status:0},35:{status:0},36:{status:0},37:{status:0},38:{status:0},39:{status:0},40:{status:0}}";
+            String text = "{1:{status:0},2:{status:0},3:{status:0},4:{status:0},5:{status:0},6:{status:0},7:{status:0},8:{status:0},9:{status:0},10:{status:0},11:{status:0},12:{status:0},13:{status:0},14:{status:0},15:{status:0},16:{status:0},17:{status:0},18:{status:0},19:{status:0},20:{status:0},21:{status:0},22:{status:0},23:{status:0},24:{status:0},25:{status:0},26:{status:0},27:{status:0},28:{status:0},29:{status:0},30:{status:0},31:{status:0},32:{status:0},33:{status:0},34:{status:0},35:{status:0},36:{status:0},37:{status:0},38:{status:0},39:{status:0},40:{status:0},41:{status:0},42:{status:0},43:{status:0},44:{status:0},45:{status:0},46:{status:0},47:{status:0},48:{status:0},49:{status:0},50:{status:0},51:{status:0},52:{status:0},53:{status:0},54:{status:0},55:{status:0},56:{status:0},57:{status:0},58:{status:0},59:{status:0},60:{status:0}}";
             switch (Gdx.app.getType()) {
                 case WebGL:
                     level_file = Gdx.files.internal("level_status.txt");
@@ -69,8 +69,8 @@ public class MainMenuScreen implements Screen {
             }
             levels_completed = new JsonReader().parse(level_file.readString());
         }
-        System.out.println(levels_completed);
-        pages = (levels_completed.size/30)+1;
+        System.out.println(levels_completed.size);
+        pages = ((levels_completed.size-1)/30)+1;
 
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.position.set(camera.viewportWidth/2f, camera.viewportHeight/2f, 0);
@@ -150,7 +150,7 @@ public class MainMenuScreen implements Screen {
 
     private void setOn(){
         float middle =(pages)/2f +1;
-        page = (camera_x+camera.viewportWidth/2)/camera.viewportWidth;
+        page = (camera_x+camera.viewportWidth/2f)/camera.viewportWidth;
         System.out.println((middle - page - 1.5) *2 +.5f) ;
         float x_off = -1f* ((middle - page - .5f)*2 +.5f);
         on.setPosition(camera.viewportWidth/2 + x_off*on.getWidth(), 3f * on.getHeight() );
@@ -200,14 +200,14 @@ public class MainMenuScreen implements Screen {
 
     public void updateCompletedLevel(int lvl_num){
         if (levels_completed.get(Integer.toString(lvl_num+1)).getString("status").toString().equals("0")){
-            levels_completed.get(Integer.toString(lvl_num+1)).get("status").set(1);
-            switch (Gdx.app.getType()) {
-                case WebGL:
-                    break;
-                default:
-                    level_file.writeString(levels_completed.toString(), false);
-                    break;
-            }
+                levels_completed.get(Integer.toString(lvl_num+1)).get("status").set(1);
+                switch (Gdx.app.getType()) {
+                    case WebGL:
+                        break;
+                    default:
+                        level_file.writeString(levels_completed.toString(), false);
+                        break;
+                }
             float sprite_x = sprites.get(lvl_num).getX();
             float sprite_y = sprites.get(lvl_num).getY();
             checks.add(new Sprite(check));
@@ -288,7 +288,7 @@ public class MainMenuScreen implements Screen {
 
     public void touch(int x, int y){
         Boolean clicked = false;
-        if (number_click(x,y, back))
+        if (number_click(x - Math.round((page-1)*Gdx.graphics.getWidth()),y, back))
             game.setScreen(this.game.introScreen);
 
         for (int i = 0; i< sprites.size(); i++){

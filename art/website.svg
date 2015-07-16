@@ -14,7 +14,7 @@
    id="svg3202"
    version="1.1"
    inkscape:version="0.48.2 r9819"
-   sodipodi:docname="New document 11">
+   sodipodi:docname="website.svg">
   <defs
      id="defs3204" />
   <sodipodi:namedview
@@ -24,9 +24,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.35"
-     inkscape:cx="190.00001"
-     inkscape:cy="25.714292"
+     inkscape:zoom="1.4"
+     inkscape:cx="568.13595"
+     inkscape:cy="120.25768"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -34,11 +34,11 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="469"
-     inkscape:window-height="463"
-     inkscape:window-x="225"
-     inkscape:window-y="225"
-     inkscape:window-maximized="0" />
+     inkscape:window-width="1920"
+     inkscape:window-height="1028"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
   <metadata
      id="metadata3207">
     <rdf:RDF>
@@ -47,7 +47,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -82,5 +82,5 @@
            y="526.64789"
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ffffff;fill-opacity:1;font-family:Arial;-inkscape-font-specification:Arial" /></flowRegion><flowPara
          id="flowPara3791-9-4"
-         style="font-size:36px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;font-family:Arial;-inkscape-font-specification:Arial">23trainstudios.com</flowPara></flowRoot>  </g>
+         style="font-size:36px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;font-family:Arial;-inkscape-font-specification:Arial">lutharvaughn.com</flowPara></flowRoot>  </g>
 </svg>
