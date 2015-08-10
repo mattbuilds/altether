@@ -8,12 +8,12 @@ prefix = "/users/matt/documents/dev/libgdx/box_puzzle/"
 ink = "inkscape "
 prefix ="../"
 
-sizes = [480, 720, 960, 1440]
+sizes = [480, 640, 720, 960, 1280, 1440]
 images = [
 	['about.svg', 'about.png', 402],
 	['about_text.svg', 'about_text.png', 380],
 	['back.svg', 'back.png', 72],
-	['back_text.svg', 'back_text.png', 148],
+	['back_text.svg', 'back_text.png', 156],
 	['blue.svg', 'blue_tile.png', 48],
 	['blue_goal.svg', 'blue_goal.png', 48],
 	['box.svg', 'box.png', 48],
@@ -22,7 +22,7 @@ images = [
 	['green.svg', 'green_tile.png', 48],
 	['green_goal.svg', 'green_goal.png', 48],
 	['lvl_comp.svg', 'lvl_comp.png', 288],
-	['main_title.svg', 'title.png', 400],
+	['main_title.svg', 'title.png', 420],
 	['menu.svg', 'menu.png', 72],
 	['menu_popup.svg', 'menu_popup.png', 96],
 	['more.svg', 'more.png', 402],
@@ -41,7 +41,6 @@ images = [
 	['website.svg', 'website.png', 380],
 	['yellow.svg', 'yellow_tile.png', 48],
 	['yellow_goal.svg', 'yellow_goal.png', 48],
-
 ]
 
 for x in images:
