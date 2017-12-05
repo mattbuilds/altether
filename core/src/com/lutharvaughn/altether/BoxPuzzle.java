@@ -1,6 +1,7 @@
 package com.lutharvaughn.altether;
 
         import com.badlogic.gdx.*;
+        import com.badlogic.gdx.audio.Sound;
         import com.badlogic.gdx.input.GestureDetector;
         import com.badlogic.gdx.math.Vector2;
 
@@ -10,18 +11,20 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
     public static final int WIDTH = 640, HEIGHT =960;
     private int init_x=0, init_y=0;
     public String resolution;
+    public boolean sound;
 
     MainMenuScreen mainMenuScreen;
     GameScreen gameScreen;
     IntroScreen introScreen;
     MoreLevels moreLevels;
     AboutScreen aboutScreen;
+    Sound swish;
 
     Analytics analytics;
 
-
     //@Override
     public void create () {
+        sound = false;
         analytics = new Analytics();
         analytics.writeEvent("Game Started");
         analytics.createEvent();
@@ -38,6 +41,7 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
         moreLevels = new MoreLevels(this, WIDTH, HEIGHT);
         aboutScreen = new AboutScreen(this, WIDTH, HEIGHT);
         setScreen(introScreen);
+        swish = Gdx.audio.newSound(Gdx.files.internal("swipe.mp3"));
     }
 
     public String getResolution(int res){
@@ -93,6 +97,9 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
         }
 
         if (getScreen() == gameScreen){
+            if ((keycode == 19 || keycode == 20 || keycode == 21 || keycode == 22) && sound == true){
+                swish.play();
+            }
             gameScreen.move(keycode);
         }
 
@@ -197,12 +204,14 @@ public class BoxPuzzle extends Game implements InputProcessor, GestureDetector.G
     public boolean fling(float velocityX, float velocityY, int button) {
             int keycode;
             if (Math.abs(velocityX)-100f > Math.abs(velocityY)){
+                swish.play();
                 if (velocityX > 0){
                     keycode = 22;
                 } else{
                     keycode = 21;
                 }
             } else{
+                swish.play();
                 if (velocityY > 0){
                     keycode = 20;
                 } else{

@@ -13,11 +13,11 @@
    height="500.125"
    id="svg3085"
    version="1.1"
-   inkscape:version="0.48.2 r9819"
+   inkscape:version="0.91 r13725"
    inkscape:export-filename="C:\Users\Matt\Pictures\feature.png"
    inkscape:export-xdpi="89.989998"
    inkscape:export-ydpi="89.989998"
-   sodipodi:docname="New document 4">
+   sodipodi:docname="graphic.svg">
   <defs
      id="defs3087" />
   <sodipodi:namedview
@@ -27,9 +27,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.98994949"
-     inkscape:cx="650.90033"
-     inkscape:cy="205.68303"
+     inkscape:zoom="0.29969174"
+     inkscape:cx="31.877493"
+     inkscape:cy="1295.9253"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -37,10 +37,10 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="1920"
-     inkscape:window-height="1028"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:window-width="1440"
+     inkscape:window-height="802"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata3090">
@@ -50,7 +50,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -62,30 +62,33 @@
     <rect
        style="fill:#47515d;fill-opacity:1;stroke:#87aade;stroke-width:0;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none"
        id="rect4084"
-       width="1024"
-       height="500"
+       width="1536"
+       height="2008"
        x="-154.85715"
-       y="-354.78067" />
+       y="-1862.7805"
+       inkscape:export-filename="/Users/Matt/Documents/Dev/libgdx/box_puzzle/ios/data/Default~ipad.png"
+       inkscape:export-xdpi="45"
+       inkscape:export-ydpi="45" />
     <flowRoot
        xml:space="preserve"
        id="flowRoot4285"
-       style="font-size:120px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#a9b2bd;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Times New Roman;-inkscape-font-specification:'Times New Roman,'"
-       transform="translate(-36.589204,-199.33998)"
-       inkscape:export-filename="C:\Users\Matt\Documents\Dev\libgdx\box_puzzle\android\assets\480\title.png"
-       inkscape:export-xdpi="43.218906"
-       inkscape:export-ydpi="43.218906"><flowRegion
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:120px;line-height:100%;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman,';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#a9b2bd;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       transform="matrix(1.4406348,0,0,1.438131,47.278895,-1198.0112)"
+       inkscape:export-filename="/Users/Matt/Documents/Dev/libgdx/box_puzzle/ios/data/Default~ipad.png"
+       inkscape:export-xdpi="45"
+       inkscape:export-ydpi="45"><flowRegion
          id="flowRegion4287"><rect
            id="rect4289"
            width="1024"
            height="206"
            x="-12"
            y="-85.637817"
-           style="font-size:120px;fill:#a9b2bd;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+           style="font-size:120px;fill:#a9b2bd;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
            ry="0" /></flowRegion><flowPara
          id="flowPara4291"
-         style="font-size:144px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#a9b2bd;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Verdana;-inkscape-font-specification:Verdana Bold">ALTETHER</flowPara></flowRoot>    <path
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:144px;font-family:Verdana;-inkscape-font-specification:'Verdana Bold';fill:#a9b2bd;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">ALTETHER</flowPara></flowRoot>    <path
        sodipodi:type="star"
-       style="fill:#a9b2bd;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:4.46315002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#a9b2bd;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:4.46315002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path5261-6-34"
        sodipodi:sides="3"
        sodipodi:cx="-18"
@@ -98,25 +101,25 @@
        inkscape:rounded="0"
        inkscape:randomized="0"
        d="m 27.577165,370.00414 -68.055672,40.00805 -0.620151,-78.94197 z"
-       inkscape:transform-center-x="0.13564348"
-       inkscape:transform-center-y="-6.7021875"
-       transform="matrix(0,-0.59631949,-0.75767085,0,372.91899,-311.46539)"
-       inkscape:export-filename="C:\Users\Matt\Documents\Dev\libgdx\box_puzzle\android\assets\480\title.png"
-       inkscape:export-xdpi="43.218906"
-       inkscape:export-ydpi="43.218906" />
+       inkscape:transform-center-x="0.1954246"
+       inkscape:transform-center-y="-9.6385636"
+       transform="matrix(0,-0.85758559,-1.091527,0,636.02888,-1313.0746)"
+       inkscape:export-filename="/Users/Matt/Documents/Dev/libgdx/box_puzzle/ios/data/Default~ipad.png"
+       inkscape:export-xdpi="45"
+       inkscape:export-ydpi="45" />
     <rect
-       style="fill:#a9b2bd;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       style="fill:#a9b2bd;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect5681"
-       width="23.864855"
-       height="30.582369"
-       x="78.161087"
-       y="-305.68985"
-       inkscape:export-filename="C:\Users\Matt\Documents\Dev\libgdx\box_puzzle\android\assets\480\title.png"
-       inkscape:export-xdpi="43.218906"
-       inkscape:export-ydpi="43.218906" />
+       width="34.380539"
+       height="43.981457"
+       x="213.19304"
+       y="-1296.9708"
+       inkscape:export-filename="/Users/Matt/Documents/Dev/libgdx/box_puzzle/ios/data/Default~ipad.png"
+       inkscape:export-xdpi="45"
+       inkscape:export-ydpi="45" />
     <path
        sodipodi:type="star"
-       style="fill:#a9b2bd;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:4.46315002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#a9b2bd;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:4.46315002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path5261-6-34-1"
        sodipodi:sides="3"
        sodipodi:cx="-18"
@@ -129,231 +132,231 @@
        inkscape:rounded="0"
        inkscape:randomized="0"
        d="m 27.577165,370.00414 -68.055672,40.00805 -0.620151,-78.94197 z"
-       inkscape:transform-center-x="-0.13564573"
-       inkscape:transform-center-y="6.7021927"
-       transform="matrix(0,0.59631949,0.75767085,0,263.59088,-155.10073)"
-       inkscape:export-filename="C:\Users\Matt\Documents\Dev\libgdx\box_puzzle\android\assets\480\title.png"
-       inkscape:export-xdpi="43.218906"
-       inkscape:export-ydpi="43.218906" />
+       inkscape:transform-center-x="-0.19542599"
+       inkscape:transform-center-y="9.6385503"
+       transform="matrix(0,0.85758559,1.091527,0,479.72876,-1134.3894)"
+       inkscape:export-filename="/Users/Matt/Documents/Dev/libgdx/box_puzzle/ios/data/Default~ipad.png"
+       inkscape:export-xdpi="45"
+       inkscape:export-ydpi="45" />
     <rect
-       style="fill:#a9b2bd;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       style="fill:#a9b2bd;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:0;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect5681-1-3"
-       width="23.864855"
-       height="30.582369"
-       x="531.59332"
-       y="-199.71223"
-       inkscape:export-filename="C:\Users\Matt\Documents\Dev\libgdx\box_puzzle\android\assets\480\title.png"
-       inkscape:export-xdpi="43.218906"
-       inkscape:export-ydpi="43.218906" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       width="34.380539"
+       height="43.981457"
+       x="865.82239"
+       y="-1198.5465"
+       inkscape:export-filename="/Users/Matt/Documents/Dev/libgdx/box_puzzle/ios/data/Default~ipad.png"
+       inkscape:export-xdpi="45"
+       inkscape:export-ydpi="45" />
+    <ellipse
+       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path5213-8"
-       sodipodi:cx="110.75"
-       sodipodi:cy="-25.25"
-       sodipodi:rx="8.75"
-       sodipodi:ry="16.75"
-       d="m 119.5,-25.25 a 8.75,16.75 0 1 1 -17.5,0 8.75,16.75 0 1 1 17.5,0 z"
-       transform="matrix(2.8571426,0,0,1.4925371,-34.334795,100.25351)" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       cx="513.31146"
+       cy="-766.46088"
+       rx="37.406513"
+       ry="37.5"
+       inkscape:export-filename="/Users/Matt/Documents/Dev/libgdx/box_puzzle/ios/data/Default~ipad.png"
+       inkscape:export-xdpi="45"
+       inkscape:export-ydpi="45" />
+    <ellipse
+       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path5213-8-2"
-       sodipodi:cx="110.75"
-       sodipodi:cy="-25.25"
-       sodipodi:rx="8.75"
-       sodipodi:ry="16.75"
-       d="m 119.5,-25.25 a 8.75,16.75 0 1 1 -17.5,0 8.75,16.75 0 1 1 17.5,0 z"
-       transform="matrix(2.8571426,0,0,1.4925371,40.665216,100.25351)" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       cx="625.53113"
+       cy="-766.46088"
+       rx="37.406513"
+       ry="37.5"
+       inkscape:export-filename="/Users/Matt/Documents/Dev/libgdx/box_puzzle/ios/data/Default~ipad.png"
+       inkscape:export-xdpi="45"
+       inkscape:export-ydpi="45" />
+    <ellipse
+       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path5213-8-4"
-       sodipodi:cx="110.75"
-       sodipodi:cy="-25.25"
-       sodipodi:rx="8.75"
-       sodipodi:ry="16.75"
-       d="m 119.5,-25.25 a 8.75,16.75 0 1 1 -17.5,0 8.75,16.75 0 1 1 17.5,0 z"
-       transform="matrix(2.8571426,0,0,1.4925371,115.66521,100.25351)" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       cx="737.75061"
+       cy="-766.46088"
+       rx="37.406513"
+       ry="37.5"
+       inkscape:export-filename="/Users/Matt/Documents/Dev/libgdx/box_puzzle/ios/data/Default~ipad.png"
+       inkscape:export-xdpi="45"
+       inkscape:export-ydpi="45" />
+    <ellipse
+       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path5213-8-5"
-       sodipodi:cx="110.75"
-       sodipodi:cy="-25.25"
-       sodipodi:rx="8.75"
-       sodipodi:ry="16.75"
-       d="m 119.5,-25.25 a 8.75,16.75 0 1 1 -17.5,0 8.75,16.75 0 1 1 17.5,0 z"
-       transform="matrix(2.8571426,0,0,1.4925371,-34.334795,25.253521)" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       cx="513.31146"
+       cy="-878.96088"
+       rx="37.406513"
+       ry="37.5"
+       inkscape:export-filename="/Users/Matt/Documents/Dev/libgdx/box_puzzle/ios/data/Default~ipad.png"
+       inkscape:export-xdpi="45"
+       inkscape:export-ydpi="45" />
+    <ellipse
+       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path5213-8-5-5"
-       sodipodi:cx="110.75"
-       sodipodi:cy="-25.25"
-       sodipodi:rx="8.75"
-       sodipodi:ry="16.75"
-       d="m 119.5,-25.25 a 8.75,16.75 0 1 1 -17.5,0 8.75,16.75 0 1 1 17.5,0 z"
-       transform="matrix(2.8571426,0,0,1.4925371,115.66521,25.253521)" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       cx="737.75061"
+       cy="-878.96088"
+       rx="37.406513"
+       ry="37.5"
+       inkscape:export-filename="/Users/Matt/Documents/Dev/libgdx/box_puzzle/ios/data/Default~ipad.png"
+       inkscape:export-xdpi="45"
+       inkscape:export-ydpi="45" />
+    <ellipse
+       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path5213-8-5-1"
-       sodipodi:cx="110.75"
-       sodipodi:cy="-25.25"
-       sodipodi:rx="8.75"
-       sodipodi:ry="16.75"
-       d="m 119.5,-25.25 a 8.75,16.75 0 1 1 -17.5,0 8.75,16.75 0 1 1 17.5,0 z"
-       transform="matrix(2.8571426,0,0,1.4925371,40.665197,25.253521)" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       cx="625.53101"
+       cy="-878.96088"
+       rx="37.406513"
+       ry="37.5"
+       inkscape:export-filename="/Users/Matt/Documents/Dev/libgdx/box_puzzle/ios/data/Default~ipad.png"
+       inkscape:export-xdpi="45"
+       inkscape:export-ydpi="45" />
+    <ellipse
+       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path5213-8-5-7"
-       sodipodi:cx="110.75"
-       sodipodi:cy="-25.25"
-       sodipodi:rx="8.75"
-       sodipodi:ry="16.75"
-       d="m 119.5,-25.25 a 8.75,16.75 0 1 1 -17.5,0 8.75,16.75 0 1 1 17.5,0 z"
-       transform="matrix(2.8571426,0,0,1.4925371,-34.334795,-49.746413)" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       cx="513.31146"
+       cy="-991.46094"
+       rx="37.406513"
+       ry="37.5"
+       inkscape:export-filename="/Users/Matt/Documents/Dev/libgdx/box_puzzle/ios/data/Default~ipad.png"
+       inkscape:export-xdpi="45"
+       inkscape:export-ydpi="45" />
+    <ellipse
+       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path5213-8-5-11"
-       sodipodi:cx="110.75"
-       sodipodi:cy="-25.25"
-       sodipodi:rx="8.75"
-       sodipodi:ry="16.75"
-       d="m 119.5,-25.25 a 8.75,16.75 0 1 1 -17.5,0 8.75,16.75 0 1 1 17.5,0 z"
-       transform="matrix(2.8571426,0,0,1.4925371,40.665216,-49.746413)" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       cx="625.53113"
+       cy="-991.46094"
+       rx="37.406513"
+       ry="37.5"
+       inkscape:export-filename="/Users/Matt/Documents/Dev/libgdx/box_puzzle/ios/data/Default~ipad.png"
+       inkscape:export-xdpi="45"
+       inkscape:export-ydpi="45" />
+    <ellipse
+       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path5213-8-5-52"
-       sodipodi:cx="110.75"
-       sodipodi:cy="-25.25"
-       sodipodi:rx="8.75"
-       sodipodi:ry="16.75"
-       d="m 119.5,-25.25 a 8.75,16.75 0 1 1 -17.5,0 8.75,16.75 0 1 1 17.5,0 z"
-       transform="matrix(2.8571426,0,0,1.4925371,115.66521,-49.746413)" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#55cfdd;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       cx="737.75061"
+       cy="-991.46094"
+       rx="37.406513"
+       ry="37.5"
+       inkscape:export-filename="/Users/Matt/Documents/Dev/libgdx/box_puzzle/ios/data/Default~ipad.png"
+       inkscape:export-xdpi="45"
+       inkscape:export-ydpi="45" />
+    <ellipse
+       style="fill:#55cfdd;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path5213"
-       sodipodi:cx="110.75"
-       sodipodi:cy="-25.25"
-       sodipodi:rx="8.75"
-       sodipodi:ry="16.75"
-       d="m 119.5,-25.25 a 8.75,16.75 0 1 1 -17.5,0 8.75,16.75 0 1 1 17.5,0 z"
-       transform="matrix(2.8571426,0,0,1.4925371,40.665216,25.253521)" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       cx="625.53113"
+       cy="-878.96088"
+       rx="37.406513"
+       ry="37.5"
+       inkscape:export-filename="/Users/Matt/Documents/Dev/libgdx/box_puzzle/ios/data/Default~ipad.png"
+       inkscape:export-xdpi="45"
+       inkscape:export-ydpi="45" />
+    <ellipse
+       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path6482"
-       sodipodi:cx="-4.6875"
-       sodipodi:cy="11.4375"
-       sodipodi:rx="14.4375"
-       sodipodi:ry="9.1875"
-       d="m 9.75,11.4375 a 14.4375,9.1875 0 1 1 -28.875,0 14.4375,9.1875 0 1 1 28.875,0 z"
-       transform="matrix(1.4652013,0,0,2.3024591,363.96189,-38.767283)" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#55cfdd;fill-opacity:0.15686275;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       cx="625.53113"
+       cy="-878.96069"
+       rx="31.651661"
+       ry="31.730768"
+       inkscape:export-filename="/Users/Matt/Documents/Dev/libgdx/box_puzzle/ios/data/Default~ipad.png"
+       inkscape:export-xdpi="45"
+       inkscape:export-ydpi="45" />
+    <ellipse
+       style="fill:#55cfdd;fill-opacity:0.15686275;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path6484"
-       sodipodi:cx="-11.3125"
-       sodipodi:cy="22.0625"
-       sodipodi:rx="6.6875"
-       sodipodi:ry="7.8125"
-       d="m -4.625,22.0625 a 6.6875,7.8125 0 1 1 -13.375,0 6.6875,7.8125 0 1 1 13.375,0 z"
-       transform="matrix(3.1631917,0,0,2.707692,392.87739,-72.171363)" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#55cfdd;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       cx="625.53113"
+       cy="-878.96069"
+       rx="31.651665"
+       ry="31.730768"
+       inkscape:export-filename="/Users/Matt/Documents/Dev/libgdx/box_puzzle/ios/data/Default~ipad.png"
+       inkscape:export-xdpi="45"
+       inkscape:export-ydpi="45" />
+    <ellipse
+       style="fill:#55cfdd;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path5213-7"
-       sodipodi:cx="110.75"
-       sodipodi:cy="-25.25"
-       sodipodi:rx="8.75"
-       sodipodi:ry="16.75"
-       d="m 119.5,-25.25 a 8.75,16.75 0 1 1 -17.5,0 8.75,16.75 0 1 1 17.5,0 z"
-       transform="matrix(2.8571426,0,0,1.4925371,115.66521,100.25351)" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#dd5555;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       cx="737.75061"
+       cy="-766.46088"
+       rx="37.406513"
+       ry="37.5"
+       inkscape:export-filename="/Users/Matt/Documents/Dev/libgdx/box_puzzle/ios/data/Default~ipad.png"
+       inkscape:export-xdpi="45"
+       inkscape:export-ydpi="45" />
+    <ellipse
+       style="fill:#dd5555;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path5213-2"
-       sodipodi:cx="110.75"
-       sodipodi:cy="-25.25"
-       sodipodi:rx="8.75"
-       sodipodi:ry="16.75"
-       d="m 119.5,-25.25 a 8.75,16.75 0 1 1 -17.5,0 8.75,16.75 0 1 1 17.5,0 z"
-       transform="matrix(2.8571426,0,0,1.4925371,115.66521,-49.746413)" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       cx="737.75061"
+       cy="-991.46094"
+       rx="37.406513"
+       ry="37.5"
+       inkscape:export-filename="/Users/Matt/Documents/Dev/libgdx/box_puzzle/ios/data/Default~ipad.png"
+       inkscape:export-xdpi="45"
+       inkscape:export-ydpi="45" />
+    <ellipse
+       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path6482-3"
-       sodipodi:cx="-4.6875"
-       sodipodi:cy="11.4375"
-       sodipodi:rx="14.4375"
-       sodipodi:ry="9.1875"
-       d="m 9.75,11.4375 a 14.4375,9.1875 0 1 1 -28.875,0 14.4375,9.1875 0 1 1 28.875,0 z"
-       transform="matrix(1.5238093,0,0,2.3945577,439.23661,-114.82067)" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#dd5555;fill-opacity:0.29411765;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       cx="737.75061"
+       cy="-991.46075"
+       rx="32.917728"
+       ry="33.000004"
+       inkscape:export-filename="/Users/Matt/Documents/Dev/libgdx/box_puzzle/ios/data/Default~ipad.png"
+       inkscape:export-xdpi="45"
+       inkscape:export-ydpi="45" />
+    <ellipse
+       style="fill:#dd5555;fill-opacity:0.29411765;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path6484-2"
-       sodipodi:cx="-11.3125"
-       sodipodi:cy="22.0625"
-       sodipodi:rx="6.6875"
-       sodipodi:ry="7.8125"
-       d="m -4.625,22.0625 a 6.6875,7.8125 0 1 1 -13.375,0 6.6875,7.8125 0 1 1 13.375,0 z"
-       transform="matrix(3.2897192,0,0,2.8159997,469.30869,-149.56092)" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#dd5555;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       cx="737.75061"
+       cy="-991.46094"
+       rx="32.917732"
+       ry="33.000004"
+       inkscape:export-filename="/Users/Matt/Documents/Dev/libgdx/box_puzzle/ios/data/Default~ipad.png"
+       inkscape:export-xdpi="45"
+       inkscape:export-ydpi="45" />
+    <ellipse
+       style="fill:#dd5555;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path5213-2-2"
-       sodipodi:cx="110.75"
-       sodipodi:cy="-25.25"
-       sodipodi:rx="8.75"
-       sodipodi:ry="16.75"
-       d="m 119.5,-25.25 a 8.75,16.75 0 1 1 -17.5,0 8.75,16.75 0 1 1 17.5,0 z"
-       transform="matrix(2.8571426,0,0,1.4925371,-34.334795,25.253521)" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#d5dd55;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       cx="513.31171"
+       cy="-879.56152"
+       ry="38.249996"
+       rx="38.15464"
+       inkscape:export-filename="/Users/Matt/Documents/Dev/libgdx/box_puzzle/ios/data/Default~ipad.png"
+       inkscape:export-xdpi="45"
+       inkscape:export-ydpi="45" />
+    <ellipse
+       style="fill:#d5dd55;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path5213-1"
-       sodipodi:cx="110.75"
-       sodipodi:cy="-25.25"
-       sodipodi:rx="8.75"
-       sodipodi:ry="16.75"
-       d="m 119.5,-25.25 a 8.75,16.75 0 1 1 -17.5,0 8.75,16.75 0 1 1 17.5,0 z"
-       transform="matrix(2.8571426,0,0,1.4925371,40.665216,-49.746413)" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       cx="625.53113"
+       cy="-991.46094"
+       rx="37.406513"
+       ry="37.5"
+       inkscape:export-filename="/Users/Matt/Documents/Dev/libgdx/box_puzzle/ios/data/Default~ipad.png"
+       inkscape:export-xdpi="45"
+       inkscape:export-ydpi="45" />
+    <ellipse
+       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path6482-6"
-       sodipodi:cx="-4.6875"
-       sodipodi:cy="11.4375"
-       sodipodi:rx="14.4375"
-       sodipodi:ry="9.1875"
-       d="m 9.75,11.4375 a 14.4375,9.1875 0 1 1 -28.875,0 14.4375,9.1875 0 1 1 28.875,0 z"
-       transform="matrix(1.4652013,0,0,2.3024591,363.96187,-113.76723)" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#d5dd55;fill-opacity:0.15686275;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       cx="625.53101"
+       cy="-991.46075"
+       rx="31.651661"
+       ry="31.730768"
+       inkscape:export-filename="/Users/Matt/Documents/Dev/libgdx/box_puzzle/ios/data/Default~ipad.png"
+       inkscape:export-xdpi="45"
+       inkscape:export-ydpi="45" />
+    <ellipse
+       style="fill:#d5dd55;fill-opacity:0.15686275;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path6484-8"
-       sodipodi:cx="-11.3125"
-       sodipodi:cy="22.0625"
-       sodipodi:rx="6.6875"
-       sodipodi:ry="7.8125"
-       d="m -4.625,22.0625 a 6.6875,7.8125 0 1 1 -13.375,0 6.6875,7.8125 0 1 1 13.375,0 z"
-       transform="matrix(3.1631915,0,0,2.707692,392.87736,-147.1714)" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#d5dd55;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       cx="625.53113"
+       cy="-991.46094"
+       rx="31.651661"
+       ry="31.730768"
+       inkscape:export-filename="/Users/Matt/Documents/Dev/libgdx/box_puzzle/ios/data/Default~ipad.png"
+       inkscape:export-xdpi="45"
+       inkscape:export-ydpi="45" />
+    <ellipse
+       style="fill:#d5dd55;fill-opacity:1;stroke:#ffffff;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path5213-1-5"
-       sodipodi:cx="110.75"
-       sodipodi:cy="-25.25"
-       sodipodi:rx="8.75"
-       sodipodi:ry="16.75"
-       d="m 119.5,-25.25 a 8.75,16.75 0 1 1 -17.5,0 8.75,16.75 0 1 1 17.5,0 z"
-       transform="matrix(2.8571426,0,0,1.4925371,-34.334795,100.25351)" />
+       cx="513.31146"
+       cy="-766.46088"
+       rx="37.406513"
+       ry="37.5"
+       inkscape:export-filename="/Users/Matt/Documents/Dev/libgdx/box_puzzle/ios/data/Default~ipad.png"
+       inkscape:export-xdpi="45"
+       inkscape:export-ydpi="45" />
   </g>
 </svg>

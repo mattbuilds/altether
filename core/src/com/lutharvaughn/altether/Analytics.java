@@ -42,7 +42,7 @@ public class Analytics {
 
             httpRequest.setHeader("Content-Type", "application/json");
             httpRequest.setHeader("Accept", "application/json");
-            httpRequest.setUrl("/create_event");
+            httpRequest.setUrl("http://104.131.200.26/create_event");
         } else{
             analytics_file = Gdx.files.local("analytics_file.txt");
             analytics_file.writeString("", true);

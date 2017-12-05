@@ -1,5 +1,6 @@
 package com.lutharvaughn.altether;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
@@ -64,12 +65,11 @@ public class Box {
             y = 0;
         }
 
-        //System.out.println(1 * time * speed_x);
         x += Math.round(15 * time * speed_x);
         y += Math.round(15 * time * speed_y);
     }
 
-    public void checkGoal(){
+    public void checkGoal(Sound ding, boolean sound, GoalAnimation goalAnimation){
         // Blank for Boxes (only used for player)
     }
 
@@ -91,6 +91,10 @@ public class Box {
                 speed_x = 100;
                 speed_y = 0;
             }
+        }
+        if (getCompletedGoal()){
+            speed_x = 0;
+            speed_y = 0;
         }
     }
 

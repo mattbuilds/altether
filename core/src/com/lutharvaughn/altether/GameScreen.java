@@ -1,6 +1,7 @@
 package com.lutharvaughn.altether;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
@@ -25,6 +26,7 @@ public class GameScreen implements Screen{
 
     Texture red_text, blue_text, red_goal, blue_goal, green_text, green_goal, yellow_text, yellow_goal,
             purple_text, purple_goal, wall_img;
+    GoalAnimation goalAnimation;
     Sprite background_grid;
 
     Player player;
@@ -37,6 +39,7 @@ public class GameScreen implements Screen{
     private float time;
     private boolean won = false;
     private OrthographicCamera camera;
+    Sound ding;
 
     BoxPuzzle game; // Note it's "my altether" not "your altether"
 
@@ -76,7 +79,9 @@ public class GameScreen implements Screen{
         yellow_goal = new Texture(game.resolution + "/yellow_goal.png");
 
         batch = new SpriteBatch();
-        level = new Level(this.game, background_grid, red_text, red_goal, blue_text, blue_goal, green_text, green_goal, yellow_text, yellow_goal);
+        goalAnimation = new GoalAnimation(this.game, batch);
+        level = new Level(this.game, background_grid, red_text, red_goal, blue_text, blue_goal, green_text, green_goal,
+                yellow_text, yellow_goal, goalAnimation);
         level.load(lvl_num, levels);
 
         font = new BitmapFont(Gdx.files.internal(this.game.resolution +"/font.fnt"), Gdx.files.internal(this.game.resolution +"/font.png"), false);
@@ -125,19 +130,22 @@ public class GameScreen implements Screen{
         next_popup.setPosition(camera.viewportWidth/2 + .5f*next_popup.getWidth(),camera.viewportHeight/2 - 1.25f* next_popup.getHeight());
 
         fpsLogger = new FPSLogger();
+
+        ding = Gdx.audio.newSound(Gdx.files.internal("ding.mp3"));
     }
 
     public void load_level(int id){
         System.out.println("In Level");
         lvl_num = id;
-        level = new Level(this.game, background_grid, red_text, red_goal, blue_text, blue_goal, green_text, green_goal, yellow_text, yellow_goal);
+        level = new Level(this.game, background_grid, red_text, red_goal, blue_text, blue_goal, green_text, green_goal,
+                yellow_text, yellow_goal, goalAnimation);
         level.load(lvl_num, levels);
     }
 
     @Override
     public void render (float something) {
         time = Gdx.graphics.getDeltaTime();
-        level.boxesSpeed(700, 700, offset, time);
+        level.boxesSpeed(700, 700, offset, time, ding, this.game.sound);
         level.doCollisions();
         //level.stuff();
         //player.getSpeed(width, height, offset, time);
@@ -147,7 +155,7 @@ public class GameScreen implements Screen{
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         //arrow.drawArrow(batch);
-        level.draw(batch);
+        level.draw(batch, goalAnimation);
         top_bar.draw(batch);
         menu.draw(batch);
         font.draw(batch, "Level " +lvl_num, camera.viewportWidth/2f - font.getBounds("Level " + lvl_num).width/2f, camera.viewportHeight - top_bar.getHeight()/2f +  font.getBounds("Level " + lvl_num).height/2f );
@@ -178,14 +186,16 @@ public class GameScreen implements Screen{
     public void move (int keycode) {
         if (keycode == 46){
             game.analytics.writeEvent("Refresh lvl "+lvl_num);
-            level = new Level(this.game, background_grid, red_text, red_goal, blue_text, blue_goal, green_text, green_goal, yellow_text, yellow_goal);
+            level = new Level(this.game, background_grid, red_text, red_goal, blue_text, blue_goal, green_text,
+                              green_goal, yellow_text, yellow_goal, goalAnimation);
             level.load(lvl_num, levels);
         }
 
         if (keycode == 66 && won == true){
             game.analytics.writeEvent("Continuted from lvl "+lvl_num);
             won = false;
-            level = new Level(this.game, background_grid, red_text, red_goal, blue_text, blue_goal, green_text, green_goal, yellow_text, yellow_goal);
+            level = new Level(this.game, background_grid, red_text, red_goal, blue_text, blue_goal, green_text,
+                              green_goal, yellow_text, yellow_goal, goalAnimation);
             lvl_num += 1;
             level.load(lvl_num, levels);
         }
@@ -197,7 +207,8 @@ public class GameScreen implements Screen{
             if (spriteTouch(x,y,next_popup)){
                 game.analytics.writeEvent("Continuted from lvl "+lvl_num);
                 won = false;
-                level = new Level(this.game, background_grid, red_text, red_goal, blue_text, blue_goal, green_text, green_goal, yellow_text, yellow_goal);
+                level = new Level(this.game, background_grid, red_text, red_goal, blue_text, blue_goal, green_text,
+                                  green_goal, yellow_text, yellow_goal, goalAnimation);
                 lvl_num += 1;
                 level.load(lvl_num, levels);
             }
@@ -215,20 +226,23 @@ public class GameScreen implements Screen{
 
             if (spriteTouch(x,y,refresh)){
                 game.analytics.writeEvent("Refresh lvl "+lvl_num);
-                level = new Level(this.game, background_grid, red_text, red_goal, blue_text, blue_goal, green_text, green_goal, yellow_text, yellow_goal);
+                level = new Level(this.game, background_grid, red_text, red_goal, blue_text, blue_goal, green_text,
+                                  green_goal, yellow_text, yellow_goal, goalAnimation);
                 level.load(lvl_num, levels);
             }
 
             if (spriteTouch(x,y,previous) && lvl_num != 1){
                 game.analytics.writeEvent("Previous from lvl "+lvl_num);
-                level = new Level(this.game, background_grid, red_text, red_goal, blue_text, blue_goal, green_text, green_goal, yellow_text, yellow_goal);
+                level = new Level(this.game, background_grid, red_text, red_goal, blue_text, blue_goal, green_text,
+                                  green_goal, yellow_text, yellow_goal, goalAnimation);
                 lvl_num -=1;
                 level.load(lvl_num, levels);
             }
 
             if (spriteTouch(x,y, next) && lvl_num != this.game.mainMenuScreen.levels_completed.size){
                 game.analytics.writeEvent("Next from lvl "+lvl_num);
-                level = new Level(this.game, background_grid, red_text, red_goal, blue_text, blue_goal, green_text, green_goal, yellow_text, yellow_goal);
+                level = new Level(this.game, background_grid, red_text, red_goal, blue_text, blue_goal, green_text,
+                                  green_goal, yellow_text, yellow_goal, goalAnimation);
                 lvl_num += 1;
                 level.load(lvl_num, levels);
             }

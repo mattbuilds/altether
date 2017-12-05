@@ -5,12 +5,13 @@ ink = "/Applications/Inkscape.app/Contents/Resources/bin/inkscape "
 prefix = "/users/matt/documents/dev/libgdx/box_puzzle/"
 
 #pc settings
-ink = "inkscape "
-prefix ="../"
+#ink = "inkscape "
+#prefix ="../"
 
 sizes = [480, 640, 720, 960, 1280, 1440]
 images = [
-	['about.svg', 'about.png', 402],
+	['sound.svg', 'sound_off.png', 402],
+	['sound_on.svg', 'sound_on.png', 402],
 	['about_text.svg', 'about_text.png', 380],
 	['back.svg', 'back.png', 72],
 	['back_text.svg', 'back_text.png', 156],
@@ -41,6 +42,10 @@ images = [
 	['website.svg', 'website.png', 380],
 	['yellow.svg', 'yellow_tile.png', 48],
 	['yellow_goal.svg', 'yellow_goal.png', 48],
+	['red_animation.svg', 'red_animation.png', 192],
+	['blue_animation.svg', 'blue_animation.png', 192],
+	['green_animation.svg', 'green_animation.png', 192],
+	['yellow_animation.svg', 'yellow_animation.png', 192],
 ]
 
 for x in images:

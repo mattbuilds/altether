@@ -1,5 +1,6 @@
 package com.lutharvaughn.altether;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
@@ -10,8 +11,9 @@ public class Player extends Box{
     public int goal_x, goal_y;
     public Texture goal_img;
     public boolean completed_goal;
+    public String color;
 
-    public Player(int set_x, int set_y, int set_goal_x, int set_goal_y, Texture play_text, Texture goal_text){
+    public Player(int set_x, int set_y, int set_goal_x, int set_goal_y, Texture play_text, Texture goal_text, String color){
         x = set_x *64;
         y = set_y * 64;
         width = 64;
@@ -24,6 +26,7 @@ public class Player extends Box{
         goal_x = set_goal_x * 64;
         goal_y = set_goal_y * 64;
         completed_goal = false;
+        this.color = color;
     }
 
     public void draw(Batch batch, float x_offset, float y_offset){
@@ -34,27 +37,39 @@ public class Player extends Box{
         batch.draw(goal_img, goal_x*(goal_img.getWidth()/64f)+x_offset, goal_y*(goal_img.getHeight()/64f)+y_offset);
     }
 
-    public void checkGoal(){
+    public void checkGoal(Sound ding, boolean sound, GoalAnimation goalAnimation){
         if (x+width > goal_x && x < goal_x+64 && y < goal_y+64 && y+64 > goal_y) {
             if (speed_x > 0 && x > goal_x){
                 x = goal_x;
                 speed_x = 0;
                 completed_goal = true;
+                goalAnimation.setDraw(color, img.getWidth(), x, y);
+                if (sound == true)
+                    ding.play();
             }
             if (speed_x < 0 && x < goal_x){
                 x = goal_x;
                 speed_x = 0;
                 completed_goal = true;
+                goalAnimation.setDraw(color, img.getWidth(), x, y);
+                if (sound == true)
+                    ding.play();
             }
             if (speed_y > 0 && y > goal_y){
                  y = goal_y;
                 speed_y = 0;
                 completed_goal = true;
+                goalAnimation.setDraw(color, img.getWidth(), x, y);
+                if (sound == true)
+                    ding.play();
             }
             if (speed_y < 0 && y < goal_y){
                 y = goal_y;
                 speed_y = 0;
                 completed_goal = true;
+                goalAnimation.setDraw(color, img.getWidth(), x, y);
+                if (sound == true)
+                    ding.play();
             }
         }
     }

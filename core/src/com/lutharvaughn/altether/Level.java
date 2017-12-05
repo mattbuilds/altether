@@ -1,6 +1,7 @@
 package com.lutharvaughn.altether;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -18,6 +19,7 @@ public class Level {
     Texture red_text, blue_text, red_goal, blue_goal, green_text, green_goal, yellow_text, yellow_goal,
             purple_text, purple_goal, wall_img;
     Sprite background_grid;
+    GoalAnimation goalAnimation;
 
     public Goal goal;
     Grid grid, wall_grid;
@@ -26,7 +28,8 @@ public class Level {
     int grid_size = 8;
 
     public Level(BoxPuzzle game, Sprite background_grid, Texture red_text, Texture red_goal, Texture blue_text,
-                 Texture blue_goal, Texture green_text, Texture green_goal, Texture yellow_text, Texture yellow_goal){
+                 Texture blue_goal, Texture green_text, Texture green_goal, Texture yellow_text, Texture yellow_goal,
+                 GoalAnimation goalAnimation){
         walls = new ArrayList<Box>();
         //wall_img = new Texture("wall.jpg");
         boxes =  new ArrayList<Box>();
@@ -40,6 +43,8 @@ public class Level {
         this.green_goal = green_goal;
         this.yellow_text = yellow_text;
         this.yellow_goal = yellow_goal;
+        this.goalAnimation = goalAnimation;
+        this.goalAnimation.clearAnimation();
     }
 
     public void load(int lvl_num, JsonValue levels) {
@@ -48,25 +53,25 @@ public class Level {
         if (root.has("1")){
             player1 = new Player(root.get("1").get("start").get("x").asInt(), root.get("1").get("start").get("y").asInt(),
                     root.get("1").get("answer").get("x").asInt(), root.get("1").get("answer").get("y").asInt(),
-                    red_text, red_goal);
+                    red_text, red_goal, "red");
             boxes.add(player1);
         }
         if(root.has("2")){
             player2 = new Player(root.get("2").get("start").get("x").asInt(), root.get("2").get("start").get("y").asInt(),
                     root.get("2").get("answer").get("x").asInt(), root.get("2").get("answer").get("y").asInt(),
-                    blue_text, blue_goal);
+                    blue_text, blue_goal, "blue");
             boxes.add(player2);
         }
         if(root.has("3")){
             player3 = new Player(root.get("3").get("start").get("x").asInt(), root.get("3").get("start").get("y").asInt(),
                     root.get("3").get("answer").get("x").asInt(), root.get("3").get("answer").get("y").asInt(),
-                    yellow_text, yellow_goal);
+                    yellow_text, yellow_goal, "yellow");
             boxes.add(player3);
         }
         if(root.has("4")){
             player4 = new Player(root.get("4").get("start").get("x").asInt(), root.get("4").get("start").get("y").asInt(),
                     root.get("4").get("answer").get("x").asInt(), root.get("4").get("answer").get("y").asInt(),
-                    green_text, green_goal);
+                    green_text, green_goal, "green");
             boxes.add(player4);
         }
 
@@ -83,14 +88,14 @@ public class Level {
         }
     }
 
-    public void boxesSpeed(int width, int height, int offset, float time){
+    public void boxesSpeed(int width, int height, int offset, float time, Sound ding, boolean sound){
         // Removes each object from the grid, calculates new position, adds box to grid
         for (int i = 0; i <boxes.size(); i++){
             Box box = boxes.get(i);
             grid.remove(box);
             box.getSpeed(width, height, offset, time);
             if (box instanceof Player){
-                box.checkGoal();
+                box.checkGoal(ding, sound, goalAnimation);
             }
             grid.add(box);
         }
@@ -108,7 +113,7 @@ public class Level {
         }
     }
 
-    public void draw(SpriteBatch batch){
+    public void draw(SpriteBatch batch, GoalAnimation animation){
        float x_offset = (Gdx.graphics.getWidth()-(background_grid.getWidth() * grid_size))/2;
        float y_offset = (Gdx.graphics.getHeight()-(background_grid.getHeight() * grid_size))/2;
 
@@ -125,6 +130,8 @@ public class Level {
 
             boxes.get(i).draw(batch,x_offset, y_offset);
         }
+
+        goalAnimation.animate(x_offset, y_offset);
 
 /*
         for (int i = 0; i < walls.size(); i++){
